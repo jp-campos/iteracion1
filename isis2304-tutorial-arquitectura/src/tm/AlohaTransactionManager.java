@@ -33,7 +33,7 @@ import vos.Cliente;
  * 		Intermediario entre los servicios REST de la aplicacion y la comunicacion con la Base de Datos
  * 		Modelar y manejar autonomamente las transacciones y las reglas de negocio.
  */
-public class ParranderosTransactionManager {
+public class AlohaTransactionManager {
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// CONSTANTES
@@ -96,7 +96,7 @@ public class ParranderosTransactionManager {
 	 * @throws IOException Se genera una excepcion al tener dificultades con la inicializacion de la conexion<br/>
 	 * @throws ClassNotFoundException 
 	 */
-	public ParranderosTransactionManager(String contextPathP) {
+	public AlohaTransactionManager(String contextPathP) {
 		
 		try {
 			CONNECTION_DATA_PATH = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
@@ -118,7 +118,7 @@ public class ParranderosTransactionManager {
 	 */
 	private void initializeConnectionData() throws IOException, ClassNotFoundException {
 
-		FileInputStream fileInputStream = new FileInputStream(new File(ParranderosTransactionManager.CONNECTION_DATA_PATH));
+		FileInputStream fileInputStream = new FileInputStream(new File(AlohaTransactionManager.CONNECTION_DATA_PATH));
 		Properties properties = new Properties();
 		
 		properties.load(fileInputStream);
@@ -294,7 +294,7 @@ public class ParranderosTransactionManager {
 
 			//TODO Requerimiento 3E: Establezca la conexion en el objeto DAOBebedor (revise los metodos de la clase DAOBebedor)
 
-			daoBebedor.addBebedor(bebedor);
+			daoBebedor.updateCliente(bebedor);
 
 		}
 		catch (SQLException sqlException) {
@@ -336,7 +336,7 @@ public class ParranderosTransactionManager {
 		try
 		{
 			//TODO Requerimiento 4B: Obtenga la conexion a la Base de Datos (revise los metodos de la clase)
-			daoBebedor.addBebedor(bebedor);
+			daoBebedor.updateCliente(bebedor);
 			//TODO Requerimiento 4C: Establezca la conexion del DaoBebedor a la Base de datos (revise los metodos de DAOBebedor)
 		
 			

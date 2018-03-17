@@ -36,7 +36,7 @@ public class DAOBebedor {
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "jp.campos";
+	public final static String USUARIO = "PARRANDEROS";
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ public class DAOBebedor {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void updateBebedor(Cliente bebedor) throws SQLException, Exception {
+	public void updateCliente(Cliente bebedor) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(String.format("UPDATE %s.BEBEDORES SET ", USUARIO));
@@ -192,7 +192,7 @@ public class DAOBebedor {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void deleteBebedor(Cliente bebedor) throws SQLException, Exception {
+	public void cancelarReserva(Cliente bebedor) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.BEBEDORES WHERE ID = %2$d", USUARIO, bebedor.getId());
 

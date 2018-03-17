@@ -29,7 +29,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tm.ParranderosTransactionManager;
+import tm.AlohaTransactionManager;
 import vos.Cliente;
 
 /**
@@ -71,6 +71,30 @@ public class BebedoresService {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
+	 * Metodo Post Que registra un cliente. <br/>
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/bebedores <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los bebedores que estan en la Base de Datos <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */			
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response postCliente() {
+		
+		try {
+			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+			
+			List<Cliente> bebedores;
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			bebedores = tm.getAllBebedores();
+			return Response.status(200).entity(bebedores).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	/**
 	 * Metodo GET que trae a todos los bebedores en la Base de datos. <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
 	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/bebedores <br/>
@@ -82,7 +106,7 @@ public class BebedoresService {
 	public Response getBebedores() {
 		
 		try {
-			ParranderosTransactionManager tm = new ParranderosTransactionManager(getPath());
+			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
 			
 			List<Cliente> bebedores;
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
@@ -107,7 +131,7 @@ public class BebedoresService {
 	public Response getBebedorById( @PathParam( "id" ) Long id )
 	{
 		try{
-			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			AlohaTransactionManager tm = new AlohaTransactionManager( getPath( ) );
 			
 			Cliente bebedor = tm.getBebedorById( id );
 			return Response.status( 200 ).entity( bebedor ).build( );			
@@ -138,7 +162,7 @@ public class BebedoresService {
 	public Response getBebedoresByCiudadAndPresupuesto(@QueryParam("ciudad")String ciudad){
 		
 		try{
-			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			AlohaTransactionManager tm = new AlohaTransactionManager( getPath( ) );
 			
 			List<Cliente>bebedores;
 			

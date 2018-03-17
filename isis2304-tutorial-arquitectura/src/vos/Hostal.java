@@ -14,15 +14,14 @@ public class Hostal extends Hotel{
 	private String horaCierre;
 	
 	
-	public Hostal(@JsonProperty(value = "capacidad")int capacidad,@JsonProperty(value = "disponibilidad") int disponibilidad, @JsonProperty(value = "registroCamaraComercio")String registroCamaraComercio,
+	public Hostal(@JsonProperty(value="id")int id,  @JsonProperty(value = "capacidad")int capacidad,@JsonProperty(value = "disponibilidad") int disponibilidad, @JsonProperty(value = "registroCamaraComercio")String registroCamaraComercio,
 			@JsonProperty(value = "registroSuperIntendencia")String registroSuperIntendencia,
-			@JsonProperty(value = "ubicacion")String ubicacion) {
+			@JsonProperty(value = "ubicacion")String ubicacion,@JsonProperty(value = "horaApertura")String horaApertura,@JsonProperty(value = "horaCierre")String horaCierre ) {
 		
-		super(); 
-		super.setCapacidad(capacidad);
-		super.setDisponibilidad(disponibilidad);
-		super.setRegistroCamaraComercio(registroCamaraComercio);
-		super.setUbicacion(ubicacion);
+		super(id, capacidad, disponibilidad, registroCamaraComercio, registroSuperIntendencia, ubicacion); 
+
+		this.horaApertura =horaApertura;
+		this.horaCierre=horaCierre;
 		
 		
 	}

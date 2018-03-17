@@ -6,7 +6,7 @@ public class RelacionUniandino {
 
 	
 	/**
-	 * Id del cliente
+	 * Id
 	 */
 	@JsonProperty(value="id")
 	private Long id; 
@@ -32,6 +32,14 @@ public class RelacionUniandino {
 	
 	
 	
+	public RelacionUniandino(@JsonProperty(value="id")Long id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") Integer carnet) {
+		
+		this.id = id;
+		this.nombre = nombre;
+		this.rol = rol;
+		this.carnet = carnet;
+	}
+
 	public Long getId() {
 		return id;
 	}

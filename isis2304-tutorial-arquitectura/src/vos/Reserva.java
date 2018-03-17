@@ -15,9 +15,13 @@ public class Reserva {
 	@JsonProperty(value="precio")
 	private int precio; 
 	
+	@JsonProperty(value="id")
+	private int id;
+	
 	//Constructor
-	public Reserva (@JsonProperty(value = "fechaInicial")String fechaInicial, @JsonProperty(value = "fechaFinal")String fechaFinal, @JsonProperty(value = "precio")int precio)
+	public Reserva (@JsonProperty(value="id")int id, @JsonProperty(value = "fechaInicial")String fechaInicial, @JsonProperty(value = "fechaFinal")String fechaFinal, @JsonProperty(value = "precio")int precio)
 	{
+		this.id = id; 
 		this.fechaInicial = fechaInicial; 
 		this.fechaFinal = fechaFinal; 
 		this.precio = precio; 
@@ -25,7 +29,16 @@ public class Reserva {
 	
 	
 	
-	//Métodos
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getFechaInicial() {
 		return fechaInicial;
 	}
