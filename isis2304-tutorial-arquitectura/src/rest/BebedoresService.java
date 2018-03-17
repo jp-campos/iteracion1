@@ -30,7 +30,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.ParranderosTransactionManager;
-import vos.Bebedor;
+import vos.Cliente;
 
 /**
  * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
@@ -84,7 +84,7 @@ public class BebedoresService {
 		try {
 			ParranderosTransactionManager tm = new ParranderosTransactionManager(getPath());
 			
-			List<Bebedor> bebedores;
+			List<Cliente> bebedores;
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			bebedores = tm.getAllBebedores();
 			return Response.status(200).entity(bebedores).build();
@@ -109,7 +109,7 @@ public class BebedoresService {
 		try{
 			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
 			
-			Bebedor bebedor = tm.getBebedorById( id );
+			Cliente bebedor = tm.getBebedorById( id );
 			return Response.status( 200 ).entity( bebedor ).build( );			
 		}
 		catch( Exception e )
@@ -139,7 +139,7 @@ public class BebedoresService {
 		
 		try{
 			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
-			List<Bebedor>bebedores;
+			List<Cliente>bebedores;
 			
 			//TODO Requerimiento 2D: Llame al metodo del ParranderosTransactionManager que retorne el resultado esperado a partir de los criterios establecidos
 
@@ -169,7 +169,7 @@ public class BebedoresService {
 	@Path("")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addBebedor(Bebedor bebedor) {
+	public Response addBebedor(Cliente bebedor) {
 		
 		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		return null;
@@ -189,7 +189,7 @@ public class BebedoresService {
 	@Path( "restriccionCantidad" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addBebedorWithLimitations(Bebedor bebedor) {
+	public Response addBebedorWithLimitations(Cliente bebedor) {
 		
 		//TODO Requerimiento 4A: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		return null;
@@ -210,7 +210,7 @@ public class BebedoresService {
 	//TODO Requerimiento 5B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
 	
-	public Response updateBebedor(Bebedor bebedor) {
+	public Response updateBebedor(Cliente bebedor) {
 		//TODO Requerimiento 5B: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		return null;
 	}
@@ -229,7 +229,7 @@ public class BebedoresService {
 	//TODO Requerimiento 6B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
 	
-	public Response deleteBebedor(Bebedor bebedor) {
+	public Response deleteBebedor(Cliente bebedor) {
 		//TODO Requerimiento 6C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		return null;
 	}

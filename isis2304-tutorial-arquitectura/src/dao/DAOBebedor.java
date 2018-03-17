@@ -75,8 +75,8 @@ public class DAOBebedor {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<Bebedor> getBebedores() throws SQLException, Exception {
-		ArrayList<Bebedor> bebedores = new ArrayList<Bebedor>();
+	public ArrayList<Cliente> getBebedores() throws SQLException, Exception {
+		ArrayList<Cliente> bebedores = new ArrayList<Cliente>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 		String sql = String.format("SELECT * FROM %1$s.BEBEDORES WHERE ROWNUM <= 50", USUARIO);
@@ -101,8 +101,8 @@ public class DAOBebedor {
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 
-	public ArrayList<Bebedor> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws SQLException, Exception{
-		ArrayList<Bebedor> bebedores = new ArrayList<Bebedor>();
+	public ArrayList<Cliente> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws SQLException, Exception{
+		ArrayList<Cliente> bebedores = new ArrayList<Cliente>();
 		
 		String sql = String.format("SELECT * FROM %1$s.BEBEDORES WHERE CIUDAD = '%2$s' AND PRESUPUESTO = '%3$s'", USUARIO, ciudad, presupuesto);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -125,9 +125,9 @@ public class DAOBebedor {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Bebedor findBebedorById(Long id) throws SQLException, Exception 
+	public Cliente findBebedorById(Long id) throws SQLException, Exception 
 	{
-		Bebedor bebedor = null;
+		Cliente bebedor = null;
 
 		String sql = String.format("SELECT * FROM %1$s.BEBEDORES WHERE ID = %2$d", USUARIO, id); 
 
@@ -149,7 +149,7 @@ public class DAOBebedor {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void addBebedor(Bebedor bebedor) throws SQLException, Exception {
+	public void addBebedor(Cliente bebedor) throws SQLException, Exception {
 
 		String sql = String.format("INSERT INTO %1$s.BEBEDORES (ID, NOMBRE, PRESUPUESTO, CIUDAD) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
 									USUARIO, 
@@ -172,7 +172,7 @@ public class DAOBebedor {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void updateBebedor(Bebedor bebedor) throws SQLException, Exception {
+	public void updateBebedor(Cliente bebedor) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(String.format("UPDATE %s.BEBEDORES SET ", USUARIO));
@@ -192,7 +192,7 @@ public class DAOBebedor {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void deleteBebedor(Bebedor bebedor) throws SQLException, Exception {
+	public void deleteBebedor(Cliente bebedor) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.BEBEDORES WHERE ID = %2$d", USUARIO, bebedor.getId());
 
@@ -266,7 +266,7 @@ public class DAOBebedor {
 	 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla BEBEDORES.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
-	public Bebedor convertResultSetToBebedor(ResultSet resultSet) throws SQLException {
+	public Cliente convertResultSetToBebedor(ResultSet resultSet) throws SQLException {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
@@ -278,7 +278,7 @@ public class DAOBebedor {
 		
 		
 		
-		Bebedor beb = new Bebedor(id, nombre, presupuesto, ciudad);
+		Cliente beb = new Cliente(id, nombre, presupuesto, ciudad);
 
 		return beb;
 	}

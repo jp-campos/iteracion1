@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.DAOBebedor;
-import vos.Bebedor;
+import vos.Cliente;
 
 /**
  * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
@@ -153,9 +153,9 @@ public class ParranderosTransactionManager {
 	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
 	 * @throws Exception -  Cualquier error que se genere durante la transaccion
 	 */
-	public List<Bebedor> getAllBebedores() throws Exception {
+	public List<Cliente> getAllBebedores() throws Exception {
 		DAOBebedor daoBebedor = new DAOBebedor();
-		List<Bebedor> bebedores;
+		List<Cliente> bebedores;
 		try 
 		{
 			this.conn = darConexion();
@@ -196,9 +196,9 @@ public class ParranderosTransactionManager {
 	 * @return Bebedor - Bebedor que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Bebedor getBebedorById(Long id) throws Exception {
+	public Cliente getBebedorById(Long id) throws Exception {
 		DAOBebedor daoBebedor = new DAOBebedor();
-		Bebedor bebedor = null;
+		Cliente bebedor = null;
 		try 
 		{
 			this.conn = darConexion();
@@ -242,9 +242,9 @@ public class ParranderosTransactionManager {
 	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
 	 * @throws Exception -  Cualquier error que se genere durante la transaccion
 	 */
-	public List<Bebedor> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws Exception {		
+	public List<Cliente> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws Exception {		
 		DAOBebedor daoBebedor = new DAOBebedor();
-		List<Bebedor> bebedores;
+		List<Cliente> bebedores;
 		try 
 		{
 			this.conn = darConexion();
@@ -284,7 +284,7 @@ public class ParranderosTransactionManager {
 	 * @param bebedor - el bebedor a agregar. bebedor != null
 	 * @throws Exception - Cualquier error que se genere agregando el bebedor
 	 */
-	public void addBebedor(Bebedor bebedor) throws Exception 
+	public void addBebedor(Cliente bebedor) throws Exception 
 	{
 		
 		DAOBebedor daoBebedor = new DAOBebedor( );
@@ -330,13 +330,13 @@ public class ParranderosTransactionManager {
 	 * @param cantidadMaxima -representa la cantidad maxima de bebedores que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el bebedor
 	 */
-	public void addBebedorWithLimitations(Bebedor bebedor) throws Exception 
+	public void addBebedorWithLimitations(Cliente bebedor) throws Exception 
 	{
 		DAOBebedor daoBebedor = new DAOBebedor( );
 		try
 		{
 			//TODO Requerimiento 4B: Obtenga la conexion a la Base de Datos (revise los metodos de la clase)
-
+			daoBebedor.addBebedor(bebedor);
 			//TODO Requerimiento 4C: Establezca la conexion del DaoBebedor a la Base de datos (revise los metodos de DAOBebedor)
 		
 			
@@ -379,7 +379,7 @@ public class ParranderosTransactionManager {
 	 * @param bebedor - Bebedor a actualizar. bebedor != null
 	 * @throws Exception - Cualquier error que se genere actualizando al bebedor.
 	 */
-	public void updateBebedor(Bebedor bebedor) throws Exception 
+	public void updateBebedor(Cliente bebedor) throws Exception 
 	{
 		DAOBebedor daoBebedor = new DAOBebedor( );
 		try
@@ -420,10 +420,10 @@ public class ParranderosTransactionManager {
 	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
 	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
 	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
-	 * @param Bebedor - bebedor a eliminar. bebedor != null
+	 * @param Cliente - bebedor a eliminar. bebedor != null
 	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
 	 */
-	public void deleteBebedor(Bebedor bebedor) throws Exception 
+	public void deleteBebedor(Cliente bebedor) throws Exception 
 	{
 		DAOBebedor daoBebedor = new DAOBebedor( );
 		try

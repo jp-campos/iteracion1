@@ -19,40 +19,16 @@ import org.codehaus.jackson.annotate.*;
  * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
  * Clase que representa a los Bebebores del modelo Parranderos
  */
-public class Bebedor {
+public class Cliente extends RelacionUniandino{
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 
-	/**
-	 * Id del bebedor
-	 */
-	@JsonProperty(value="id")
-	//TODO Requerimiento 1A: Cree un atributo tipo Long para representar el id. Este debe tener el mismo nombre que la etiqueta
-	private Long id; 
 
-	/**
-	 * Nombre del bebedor
-	 */
-	@JsonProperty(value="nombre")
-	//TODO Requerimiento 1B: Cree un atributo tipo String para representar el nombre. Este debe tener el mismo nombre que la etiqueta
-	private String nombre; 
-
-	/**
-	 * Presupuesto del bebedor. Puede ser Alto, Medio o Bajo.
-	 */
-	@JsonProperty(value="presupuesto")
-	//TODO Requerimiento 1C: Agregue la anotacion @JsonProperty para el atributo que representa el presupuesto. Esta debe tener el mismo nombre que el atributo
-
-	private String presupuesto;
 	
-	/**
-	 * Ciudad del bebedor
-	 */
-	//TODO Requerimiento 1D: Agregue la anotacion @JsonProperty para el atributo que representa la ciudad. Esta debe tener el mismo nombre que el atributo
-	@JsonProperty(value="ciudad")
-	private String ciudad;
+
+	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -67,7 +43,7 @@ public class Bebedor {
 	 * @param ciudad - Ciudad del bebedor.
 	 */
 	//TODO Requerimiento 1E: Complete el metodo constructor (parametros y contenido) con los atributos agregados anteriormente
-	public Bebedor( @JsonProperty(value="id")Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="presupuesto")String presupuesto,@JsonProperty(value="ciudad")String ciudad) {
+	public Cliente( @JsonProperty(value="id")Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="presupuesto")String presupuesto,@JsonProperty(value="ciudad")String ciudad) {
 
 		this.presupuesto = presupuesto;
 		this.ciudad = ciudad;
