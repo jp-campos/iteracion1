@@ -12,6 +12,9 @@
  */
 package vos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.codehaus.jackson.annotate.*;
 
 /**
@@ -26,7 +29,8 @@ public class Cliente extends RelacionUniandino{
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 
-	
+	@JsonProperty(value="reservas")
+	private List<Reserva> reservas;
 
 	
 	
@@ -43,50 +47,37 @@ public class Cliente extends RelacionUniandino{
 	 * @param ciudad - Ciudad del bebedor.
 	 */
 	//TODO Requerimiento 1E: Complete el metodo constructor (parametros y contenido) con los atributos agregados anteriormente
-	public Cliente( @JsonProperty(value="id")Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="presupuesto")String presupuesto,@JsonProperty(value="ciudad")String ciudad) {
-
-		this.presupuesto = presupuesto;
-		this.ciudad = ciudad;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getPresupuesto() {
-		return presupuesto;
-	}
-
-	public void setPresupuesto(String presupuesto) {
-		this.presupuesto = presupuesto;
-	}
-
-	public String getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public Cliente( @JsonProperty(value="id")Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet")int carnet) {
+		super();
+		setId(id);
+		setNombre(nombre);
+		setRol(rol);
+		setCarnet(carnet);
+		reservas = new ArrayList<>(); 
+		
+		
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE LA CLASE
 	//----------------------------------------------------------------------------------------------------------------------------------
-		
-		
-	//TODO Requerimiento 1F: Genere los Getters y Setter de los atributos utilizando la opcion en Source-> Generate Getters And Setters
+
+	
+	public List<Reserva> getReservas()
+	{
+		return reservas;
+	}
+	
+	public void setReservas(List <Reserva> reservas)
+	{
+		this.reservas = reservas; 
+	}
+
+	public void agregarReserva(Reserva reserva)
+	{
+		 
+	}
+	
 
 	
 	

@@ -29,6 +29,9 @@ public class RelacionUniandino {
 	@JsonProperty(value="carnet")
 	private Integer carnet;
 
+	
+	
+	
 	public Long getId() {
 		return id;
 	}

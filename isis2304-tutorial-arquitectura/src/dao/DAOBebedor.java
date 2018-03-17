@@ -145,20 +145,20 @@ public class DAOBebedor {
 	/**
 	 * Metodo que agregar la informacion de un nuevo bebedor en la Base de Datos a partir del parametro ingresado<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param bebedor Bebedor que desea agregar a la Base de Datos
+	 * @param cliente cliente que desea agregar a la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void addBebedor(Cliente bebedor) throws SQLException, Exception {
+	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
 		String sql = String.format("INSERT INTO %1$s.BEBEDORES (ID, NOMBRE, PRESUPUESTO, CIUDAD) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
 									USUARIO, 
-									bebedor.getId(), 
-									bebedor.getNombre(),
-									bebedor.getPresupuesto(), 
-									bebedor.getCiudad());
+									cliente.getId(), 
+									cliente.getNombre(),
+									cliente.getRol(), 
+									cliente.getCarnet());
 		System.out.println(sql);
-
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

@@ -139,6 +139,7 @@ public class BebedoresService {
 		
 		try{
 			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			
 			List<Cliente>bebedores;
 			
 			//TODO Requerimiento 2D: Llame al metodo del ParranderosTransactionManager que retorne el resultado esperado a partir de los criterios establecidos
@@ -170,6 +171,7 @@ public class BebedoresService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addBebedor(Cliente bebedor) {
+		
 		
 		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		return null;
