@@ -33,7 +33,7 @@ public class Cliente extends RelacionUniandino{
 	private List<Reserva> reservasHistoricas;
 
 	@JsonProperty(value="reservaActual")
-	private Reserva reservasActual;
+	private Reserva reservaActual;
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -49,13 +49,14 @@ public class Cliente extends RelacionUniandino{
 	 * @param ciudad - Ciudad del bebedor.
 	 */
 	//TODO Requerimiento 1E: Complete el metodo constructor (parametros y contenido) con los atributos agregados anteriormente
-	public Cliente( @JsonProperty(value="id")Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet")int carnet) {
+	public Cliente( @JsonProperty(value="id")int id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet")int carnet) {
 		super(id,nombre,rol,carnet);
 		setId(id);
 		setNombre(nombre);
 		setRol(rol);
 		setCarnet(carnet);
 		reservasHistoricas = new ArrayList<>(); 
+		reservaActual = null; 
 		
 		
 	}
@@ -75,12 +76,28 @@ public class Cliente extends RelacionUniandino{
 		this.reservasHistoricas = reservas; 
 	}
 
-	public void agregarReserva(Reserva reserva)
+	public void agregarReservaHistorica(Reserva reserva)
 	{
 		 reservasHistoricas.add(reserva);
 	}
+
+	public List<Reserva> getReservasHistoricas() {
+		return reservasHistoricas;
+	}
+
+	public void setReservasHistoricas(List<Reserva> reservasHistoricas) {
+		this.reservasHistoricas = reservasHistoricas;
+	}
+
+	public Reserva getReservaActual() {
+		return reservaActual;
+	}
+
+	public void setReservaActual(Reserva reservaActual) {
+		this.reservaActual = reservaActual;
+	}
 	
 	
-	
+
 	
 }

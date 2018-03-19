@@ -18,6 +18,15 @@ public class Reserva {
 	@JsonProperty(value="id")
 	private int id;
 	
+	
+	@JsonProperty(value = "habitacion")
+	private Habitacion habitacion; 
+	
+	@JsonProperty(value = "cliente")
+	private Cliente cliente; 
+		
+	
+	
 	//Constructor
 	public Reserva (@JsonProperty(value="id")int id, @JsonProperty(value = "fechaInicial")String fechaInicial, @JsonProperty(value = "fechaFinal")String fechaFinal, @JsonProperty(value = "precio")int precio)
 	{
@@ -29,6 +38,35 @@ public class Reserva {
 	
 	
 	
+	
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+
+
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+
+
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+
+
 	public int getId() {
 		return id;
 	}

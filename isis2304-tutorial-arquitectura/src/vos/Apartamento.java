@@ -14,15 +14,28 @@ public class Apartamento {
 	private boolean ocupado;
 	
 	@JsonProperty(value="ubicacion")
-	private boolean ubicacion;
-	
+	private String ubicacion;
 
-	public Apartamento(@JsonProperty(value="amoblado")boolean amoblado, @JsonProperty(value="ocupado")boolean ocupado, @JsonProperty(value="ubicacion")boolean ubicacion) {
-		super();
+	public Apartamento(@JsonProperty(value ="id")int id, @JsonProperty(value="amoblado")boolean amoblado, @JsonProperty(value="ocupado")boolean ocupado, @JsonProperty(value="ubicacion")String ubicacion) {
+
+		this.id = id;
 		this.amoblado = amoblado;
 		this.ocupado = ocupado;
 		this.ubicacion = ubicacion;
 	}
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 
 	public boolean isAmoblado() {
@@ -45,12 +58,12 @@ public class Apartamento {
 	}
 
 
-	public boolean isUbicacion() {
+	public String getUbicacion() {
 		return ubicacion;
 	}
 
 
-	public void setUbicacion(boolean ubicacion) {
+	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
 	

@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
-import dao.DAOBebedor;
+import dao.DAOCliente;
 import vos.Cliente;
 
 /**
@@ -49,10 +49,7 @@ public class AlohaTransactionManager {
 	 */
 	private static String CONNECTION_DATA_PATH;
 	
-	/**
-	 * Constatne que representa el numero maximo de Bebedores que pueden haber en una ciudad
-	 */
-	private final static Integer CANTIDAD_MAXIMA = 345;
+
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -148,21 +145,68 @@ public class AlohaTransactionManager {
 	// METODOS TRANSACCIONALES
 	//----------------------------------------------------------------------------------------------------------------------------------
 	
+	/*
+	 * AGREGAR UN CLIENTE
+	 * 
+	 */
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un bebedor a la base de datos. <br/>
+	 * <b> post: </b> se ha agregado el bebedor que entra como parametro <br/>
+	 * @param bebedor - el bebedor a agregar. bebedor != null
+	 * @throws Exception - Cualquier error que se genere agregando el bebedor
+	 */
+	public void addCliente(Cliente cliente) throws Exception 
+	{
+		
+		DAOCliente daoCliente = new DAOCliente( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoCliente.setConn(conn);
+			daoCliente.addCliente(cliente);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	/**
 	 * Metodo que modela la transaccion que retorna todos los bebedores de la base de datos. <br/>
 	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
 	 * @throws Exception -  Cualquier error que se genere durante la transaccion
 	 */
 	public List<Cliente> getAllBebedores() throws Exception {
-		DAOBebedor daoBebedor = new DAOBebedor();
-		List<Cliente> bebedores;
+		DAOCliente daoBebedor = new DAOCliente();
+		List<Cliente> clientes;
 		try 
 		{
 			this.conn = darConexion();
 			daoBebedor.setConn(conn);
 			
-			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			bebedores = daoBebedor.getBebedores();
+			
+			clientes = daoBebedor.getClientes();
 		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
@@ -187,7 +231,7 @@ public class AlohaTransactionManager {
 				throw exception;
 			}
 		}
-		return bebedores;
+		return clientes;
 	}
 	
 	/**
@@ -197,7 +241,7 @@ public class AlohaTransactionManager {
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Cliente getBebedorById(Long id) throws Exception {
-		DAOBebedor daoBebedor = new DAOBebedor();
+		DAOCliente daoBebedor = new DAOCliente();
 		Cliente bebedor = null;
 		try 
 		{
@@ -243,7 +287,7 @@ public class AlohaTransactionManager {
 	 * @throws Exception -  Cualquier error que se genere durante la transaccion
 	 */
 	public List<Cliente> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws Exception {		
-		DAOBebedor daoBebedor = new DAOBebedor();
+		DAOCliente daoBebedor = new DAOCliente();
 		List<Cliente> bebedores;
 		try 
 		{
@@ -278,49 +322,7 @@ public class AlohaTransactionManager {
 	}
 	
 
-	/**
-	 * Metodo que modela la transaccion que agrega un bebedor a la base de datos. <br/>
-	 * <b> post: </b> se ha agregado el bebedor que entra como parametro <br/>
-	 * @param bebedor - el bebedor a agregar. bebedor != null
-	 * @throws Exception - Cualquier error que se genere agregando el bebedor
-	 */
-	public void addBebedor(Cliente bebedor) throws Exception 
-	{
-		
-		DAOBebedor daoBebedor = new DAOBebedor( );
-		try
-		{
-			//TODO Requerimiento 3D: Obtenga la conexion a la Base de Datos (revise los metodos de la clase)
-
-			//TODO Requerimiento 3E: Establezca la conexion en el objeto DAOBebedor (revise los metodos de la clase DAOBebedor)
-
-			daoBebedor.updateCliente(bebedor);
-
-		}
-		catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} 
-		catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} 
-		finally {
-			try {
-				daoBebedor.cerrarRecursos();
-				if(this.conn!=null){
-					this.conn.close();					
-				}
-			}
-			catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+	
 	
 	/**
 	 * Metodo que modela la transaccion que agrega un bebedor a la base de datos  <br/>
@@ -332,7 +334,7 @@ public class AlohaTransactionManager {
 	 */
 	public void addBebedorWithLimitations(Cliente bebedor) throws Exception 
 	{
-		DAOBebedor daoBebedor = new DAOBebedor( );
+		DAOCliente daoBebedor = new DAOCliente( );
 		try
 		{
 			//TODO Requerimiento 4B: Obtenga la conexion a la Base de Datos (revise los metodos de la clase)
@@ -381,7 +383,7 @@ public class AlohaTransactionManager {
 	 */
 	public void updateBebedor(Cliente bebedor) throws Exception 
 	{
-		DAOBebedor daoBebedor = new DAOBebedor( );
+		DAOCliente daoBebedor = new DAOCliente( );
 		try
 		{
 			this.conn = darConexion();
@@ -425,7 +427,7 @@ public class AlohaTransactionManager {
 	 */
 	public void deleteBebedor(Cliente bebedor) throws Exception 
 	{
-		DAOBebedor daoBebedor = new DAOBebedor( );
+		DAOCliente daoBebedor = new DAOCliente( );
 		try
 		{
 			this.conn = darConexion();

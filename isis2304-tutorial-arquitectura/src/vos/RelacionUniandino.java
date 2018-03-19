@@ -4,15 +4,16 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class RelacionUniandino {
 
+
 	
 	/**
 	 * Id
 	 */
 	@JsonProperty(value="id")
-	private Long id; 
+	private int id; 
 
 	/**
-	 * Nombre del bebedor
+	 * Nombre del usuario
 	 */
 	@JsonProperty(value="nombre")
 	private String nombre; 
@@ -27,12 +28,12 @@ public class RelacionUniandino {
 	 * Carnet del uniandino relacioado. Puede ser nulo si se trata de un vecino
 	 */
 	@JsonProperty(value="carnet")
-	private Integer carnet;
+	private int carnet;
 
 	
 	
 	
-	public RelacionUniandino(@JsonProperty(value="id")Long id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") Integer carnet) {
+	public RelacionUniandino(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") Integer carnet) {
 		
 		this.id = id;
 		this.nombre = nombre;
@@ -40,11 +41,11 @@ public class RelacionUniandino {
 		this.carnet = carnet;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

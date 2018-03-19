@@ -15,7 +15,13 @@ public class ContratoApto extends Reserva{
 	private boolean incluyeAdmin;
 	
 
+	@JsonProperty(value="apartamento")
+	private Apartamento apartamento; 
 	
+	
+
+
+
 	public ContratoApto(@JsonProperty(value="id")int id,@JsonProperty(value = "fechaIncial")String fechaInicial,@JsonProperty(value = "fechaFinal") String fechaFinal, @JsonProperty(value = "precio")int precio, 
 			@JsonProperty(value = "incluyeServPublicos")boolean incluyeServPublicos, @JsonProperty(value="incluyeServPublicos")boolean incluyeAdmin, @JsonProperty(value = "precioServicio")int precioServicio ) {
 		
@@ -24,9 +30,19 @@ public class ContratoApto extends Reserva{
 		this.incluyeAdmin = incluyeAdmin; 
 		this.incluyeServPublicos = incluyeServPublicos; 
 		this.precioServicio = precioServicio; 
+		apartamento = null; 
 		
 	}
 
+	
+	public Apartamento getApartameto() {
+		return apartamento;
+	}
+
+
+	public void setApartameto(Apartamento apartameto) {
+		this.apartamento = apartameto;
+	}
 
 	public boolean isIncluyeServPublicos() {
 		return incluyeServPublicos;

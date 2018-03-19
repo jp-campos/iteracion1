@@ -1,5 +1,7 @@
 package vos;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Hotel {
@@ -24,12 +26,14 @@ public class Hotel {
 	@JsonProperty(value="id")
 	private int id;
 	
-	
+	@JsonProperty(value="habitaciones")
+	private List<Habitacion> habitaciones; 
 
 	
-	public Hotel(@JsonProperty(value="id")int id,@JsonProperty(value="capacidad")int capacidad, @JsonProperty(value = "disponibilidad")int disponibilidad, @JsonProperty(value="registroCamaraComercio")String registroCamaraComercio,
+	public Hotel(@JsonProperty(value= "habitaciones")List<Habitacion> habitaciones,@JsonProperty(value="id")int id,@JsonProperty(value="capacidad")int capacidad, @JsonProperty(value = "disponibilidad")int disponibilidad, @JsonProperty(value="registroCamaraComercio")String registroCamaraComercio,
 			@JsonProperty(value="registroSuperIntendencia")String registroSuperIntendencia, @JsonProperty(value = "ubicacion")String ubicacion)
 	{
+		this.habitaciones = habitaciones;
 		this.capacidad = capacidad; 
 		this.disponibilidad = disponibilidad; 
 		this.registroCamaraComercio = registroCamaraComercio; 
@@ -38,6 +42,31 @@ public class Hotel {
 		this.id =id;
 		
 	}
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+
+
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
 
 
 	public int getCapacidad() {

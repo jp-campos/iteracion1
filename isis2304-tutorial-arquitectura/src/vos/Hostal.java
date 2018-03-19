@@ -1,5 +1,7 @@
 package vos;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Hostal extends Hotel{
@@ -14,11 +16,11 @@ public class Hostal extends Hotel{
 	private String horaCierre;
 	
 	
-	public Hostal(@JsonProperty(value="id")int id,  @JsonProperty(value = "capacidad")int capacidad,@JsonProperty(value = "disponibilidad") int disponibilidad, @JsonProperty(value = "registroCamaraComercio")String registroCamaraComercio,
+	public Hostal(@JsonProperty(value = "habitaciones")List<Habitacion>habitaciones, @JsonProperty(value="id")int id,  @JsonProperty(value = "capacidad")int capacidad,@JsonProperty(value = "disponibilidad") int disponibilidad, @JsonProperty(value = "registroCamaraComercio")String registroCamaraComercio,
 			@JsonProperty(value = "registroSuperIntendencia")String registroSuperIntendencia,
 			@JsonProperty(value = "ubicacion")String ubicacion,@JsonProperty(value = "horaApertura")String horaApertura,@JsonProperty(value = "horaCierre")String horaCierre ) {
 		
-		super(id, capacidad, disponibilidad, registroCamaraComercio, registroSuperIntendencia, ubicacion); 
+		super(habitaciones, id, capacidad, disponibilidad, registroCamaraComercio, registroSuperIntendencia, ubicacion); 
 
 		this.horaApertura =horaApertura;
 		this.horaCierre=horaCierre;

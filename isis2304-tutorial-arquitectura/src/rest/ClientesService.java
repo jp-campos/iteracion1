@@ -37,8 +37,8 @@ import vos.Cliente;
  * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
  * Clase que expone servicios REST con ruta base: http://localhost:8080/TutorialParranderos/rest/bebedores/...
  */
-@Path("bebedores")
-public class BebedoresService {
+@Path("clientes")
+public class ClientesService {
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -70,6 +70,11 @@ public class BebedoresService {
 	// METODOS REST
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+	
+	/*
+	 * REGISTRAR UN CLIENTE
+	 */
+	
 	/**
 	 * Metodo Post Que registra un cliente. <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
@@ -85,7 +90,7 @@ public class BebedoresService {
 			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
 			
 			List<Cliente> bebedores;
-			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		
 			bebedores = tm.getAllBebedores();
 			return Response.status(200).entity(bebedores).build();
 		} 
@@ -216,7 +221,7 @@ public class BebedoresService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addBebedorWithLimitations(Cliente bebedor) {
-		
+		AlohaTransactionManager tm = new AlohaTransactionManager( getPath( ) );
 		//TODO Requerimiento 4A: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		return null;
 	}

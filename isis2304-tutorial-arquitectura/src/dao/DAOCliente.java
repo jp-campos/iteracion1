@@ -26,7 +26,7 @@ import vos.*;
  * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicacion
  */
-public class DAOBebedor {
+public class DAOCliente {
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// CONSTANTES
@@ -36,7 +36,7 @@ public class DAOBebedor {
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "PARRANDEROS";
+	public final static String USUARIO = "jp.campos@uniandes.edu.co";
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ public class DAOBebedor {
 	/**
 	 * Metodo constructor de la clase DAOBebedor <br/>
 	*/
-	public DAOBebedor() {
+	public DAOCliente() {
 		recursos = new ArrayList<Object>();
 	}
 	
@@ -68,6 +68,59 @@ public class DAOBebedor {
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+	
+	/**
+	 * Metodo que agregar la informacion de un nuevo bebedor en la Base de Datos a partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
+	 * @param cliente cliente que desea agregar a la Base de Datos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addCliente(Cliente cliente) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.CLIENTE (ID) VALUES (%2$s)", 
+									USUARIO, 
+									cliente.getId());
+									
+		System.out.println(sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		sql = String.format("INSERT INTO %1$s.RELACIONUNIANDINO (RELACIONUNIANDINOID, CARNET, NOMBRE, ROL) VALUES (%2$s, %3$s, '%4$s', '%5$s, ", 
+							USUARIO, 
+							cliente.getId(), cliente.getCarnet(), cliente.getNombre(), cliente.getRol());
+		
+	}
+	
+	
+	public void cancelarReserva(Cliente cliente, Reserva reserva)throws SQLException
+	{
+		
+		String sql = String.format("UPDATE %1$s.CLIENTE SET RESERVAACTUAL = NULL WHERE CLIENTEID = %2$s ", USUARIO, cliente.getId());
+		
+		System.out.println(sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		sql = String.format("UPDATE %1$s.HABITACION SET HABITACION RESERVAID = NULL WHERE RESERVAID = %2$s ",USUARIO, reserva.getId() );
+		System.out.println(sql);
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		sql = String.format("DELETE FROM %1$s.RESERVA WHERE RESERVAID = 2%$s ", USUARIO, reserva.getId());
+		System.out.println(sql);
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		
+	}
+	
 	/**
 	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos <br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
@@ -75,7 +128,7 @@ public class DAOBebedor {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<Cliente> getBebedores() throws SQLException, Exception {
+	public ArrayList<Cliente> getClientes() throws SQLException, Exception {
 		ArrayList<Cliente> bebedores = new ArrayList<Cliente>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
@@ -142,28 +195,6 @@ public class DAOBebedor {
 		return bebedor;
 	}
 	
-	/**
-	 * Metodo que agregar la informacion de un nuevo bebedor en la Base de Datos a partir del parametro ingresado<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param cliente cliente que desea agregar a la Base de Datos
-	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-	public void addCliente(Cliente cliente) throws SQLException, Exception {
-
-		String sql = String.format("INSERT INTO %1$s.BEBEDORES (ID, NOMBRE, PRESUPUESTO, CIUDAD) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
-									USUARIO, 
-									cliente.getId(), 
-									cliente.getNombre(),
-									cliente.getRol(), 
-									cliente.getCarnet());
-		System.out.println(sql);
-		
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-
-	}
 	
 	/**
 	 * Metodo que actualiza la informacion del bebedor en la Base de Datos que tiene el identificador dado por parametro<br/>
@@ -176,7 +207,7 @@ public class DAOBebedor {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(String.format("UPDATE %s.BEBEDORES SET ", USUARIO));
-		sql.append(String.format("NOMBRE = '%1$s' AND CIUDAD = '%2$s' AND PRESUPUESTO = '%3$s' ", bebedor.getNombre(), bebedor.getCiudad(), bebedor.getPresupuesto()));
+		sql.append(String.format("NOMBRE = '%1$s' AND CIUDAD = '%2$s' AND PRESUPUESTO = '%3$s' ", bebedor.getNombre()));
 		
 		System.out.println(sql);
 		
@@ -185,23 +216,6 @@ public class DAOBebedor {
 		prepStmt.executeQuery();
 	}
 
-	/**
-	 * Metodo que actualiza la informacion del bebedor en la Base de Datos que tiene el identificador dado por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param bebedor Bebedor que desea actualizar a la Base de Datos
-	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-	public void cancelarReserva(Cliente bebedor) throws SQLException, Exception {
-
-		String sql = String.format("DELETE FROM %1$s.BEBEDORES WHERE ID = %2$d", USUARIO, bebedor.getId());
-
-		System.out.println(sql);
-		
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-	}
 	
 	/**
 	 * Metodo que obtiene la cantidad de bebedores de una ciudad especifica, dada por parametro<br/>
@@ -278,9 +292,9 @@ public class DAOBebedor {
 		
 		
 		
-		Cliente beb = new Cliente(id, nombre, presupuesto, ciudad);
+	
 
-		return beb;
+		return null;
 	}
 
 }
