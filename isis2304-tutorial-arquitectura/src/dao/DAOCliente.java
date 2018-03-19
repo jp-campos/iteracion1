@@ -36,7 +36,7 @@ public class DAOCliente {
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "jp.campos@uniandes.edu.co";
+	public final static String USUARIO = "ISIS2304A791810";
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ public class DAOCliente {
 		ArrayList<Cliente> bebedores = new ArrayList<Cliente>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.BEBEDORES WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -274,22 +274,24 @@ public class DAOCliente {
 		}
 	}
 	
+	
+
+	
 	/**
-	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla BEBEDORES) en una instancia de la clase Bebedor.
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla CLIENTES) en una instancia de la clase Bebedor.
 	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
-	 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla BEBEDORES.
+	 * @return Clinete cuyos atributos corresponden a los valores asociados a un registro particular de la tabla Clientes.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Cliente convertResultSetToBebedor(ResultSet resultSet) throws SQLException {
-		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
-		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
 		
-		String presupuesto = resultSet.getString("PRESUPUESTO");
-		String ciudad = resultSet.getString("CIUDAD");
-		Long id  =resultSet.getLong("ID");
-		String nombre = resultSet.getString("NOMBRE"); 
+		int id = resultSet.getInt("CLIENTEID");
+		String nombre = resultSet.getString("RELACIONUNIANDINO");
+		String rol = resultSet.getString("ROL"); 
+		int carnet = resultSet.getInt("CARNET");
 		
+		Cliente cliente = new Cliente(id, nombre, rol, carnet);
 		
 		
 	

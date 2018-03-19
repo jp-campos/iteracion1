@@ -82,17 +82,17 @@ public class ClientesService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los bebedores que estan en la Base de Datos <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
-	@GET
+	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response postCliente() {
 		
 		try {
 			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
 			
-			List<Cliente> bebedores;
+			List<Cliente> clientes;
 		
-			bebedores = tm.getAllBebedores();
-			return Response.status(200).entity(bebedores).build();
+			clientes = tm.getAllClientes();
+			return Response.status(200).entity(clientes).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -108,15 +108,15 @@ public class ClientesService {
 	 */			
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getBebedores() {
+	public Response getAllClientes() {
 		
 		try {
 			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
 			
-			List<Cliente> bebedores;
-			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			bebedores = tm.getAllBebedores();
-			return Response.status(200).entity(bebedores).build();
+			List<Cliente> clientes;
+	
+			clientes = tm.getAllClientes();
+			return Response.status(200).entity(clientes).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -161,9 +161,7 @@ public class ClientesService {
 	
 	@GET
 	@Path( "/filterBy" )
-	//TODO Requerimiento 2B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce y/o consume el metodo 
 	@Consumes
-	//TODO Requerimiento 2C: Complete la signatura del metodo (parametros) a partir de la documentacion dada.
 	public Response getBebedoresByCiudadAndPresupuesto(@QueryParam("ciudad")String ciudad){
 		
 		try{
@@ -171,7 +169,7 @@ public class ClientesService {
 			
 			List<Cliente>bebedores;
 			
-			//TODO Requerimiento 2D: Llame al metodo del ParranderosTransactionManager que retorne el resultado esperado a partir de los criterios establecidos
+
 
 			bebedores = null;
 			return Response.status( 200 ).entity( bebedores ).build( );			
@@ -191,19 +189,22 @@ public class ClientesService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene al bebedor que ha sido agregado <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
-	//TODO Requerimiento 3A: Identifique e implemente la anotacion correcta para la realizacion del metodo
-
-	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
-
 	@POST
-	@Path("")
+	@Path("clientes")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addBebedor(Cliente bebedor) {
+	public Response addBebedor(Cliente cliente) {
+		
+		 
+		try {
+			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+			tm.addCliente(cliente);
+			 return Response.status( 200 ).entity( cliente ).build( );
+		} catch (Exception e) {
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
 		
 		
-		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
-		return null;
 	}
 	
 	/**

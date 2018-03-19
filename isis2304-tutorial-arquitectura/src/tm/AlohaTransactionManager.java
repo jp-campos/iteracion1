@@ -23,6 +23,7 @@ import java.util.Properties;
 
 import dao.DAOCliente;
 import vos.Cliente;
+import vos.RelacionUniandino;
 
 /**
  * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
@@ -136,7 +137,7 @@ public class AlohaTransactionManager {
 	 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
 	 */
 	private Connection darConexion() throws SQLException {
-		System.out.println("[PARRANDEROS APP] Attempting Connection to: " + url + " - By User: " + user);
+		System.out.println("[ALOHANDES APP] Attempting Connection to: " + url + " - By User: " + user);
 		return DriverManager.getConnection(url, user, password);
 	}
 
@@ -164,6 +165,16 @@ public class AlohaTransactionManager {
 		{
 			this.conn = darConexion(); 
 			daoCliente.setConn(conn);
+			
+			if(!cliente.getRol().equals(RelacionUniandino.FAMILIAR) ||!cliente.getRol().equals(RelacionUniandino.HOTEL) 
+			||!cliente.getRol().equals(RelacionUniandino.MAESTRIA )||!cliente.getRol().equals(RelacionUniandino.MAESTRIA)
+			||!cliente.getRol().equals(RelacionUniandino.PROFESOR))
+			{
+				throw new Exception("El cliente no cumple con los requisitos para inscribirse"); 
+			}
+			
+			
+			
 			daoCliente.addCliente(cliente);
 
 		}
@@ -197,7 +208,7 @@ public class AlohaTransactionManager {
 	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
 	 * @throws Exception -  Cualquier error que se genere durante la transaccion
 	 */
-	public List<Cliente> getAllBebedores() throws Exception {
+	public List<Cliente> getAllClientes() throws Exception {
 		DAOCliente daoBebedor = new DAOCliente();
 		List<Cliente> clientes;
 		try 

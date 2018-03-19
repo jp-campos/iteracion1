@@ -19,7 +19,7 @@ public class DAOApartamento {
 		 * Constante para indicar el usuario Oracle del estudiante
 		 */
 		//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-		public final static String USUARIO = "jp.campos@uniandes.edu.co";
+		public final static String USUARIO = "ISIS2304A791810";
 		
 		
 		//----------------------------------------------------------------------------------------------------------------------------------

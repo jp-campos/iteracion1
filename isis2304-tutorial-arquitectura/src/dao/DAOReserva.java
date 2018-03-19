@@ -17,7 +17,7 @@ public class DAOReserva {
 			/**
 			 * Constante para indicar el usuario Oracle del estudiante
 			 */
-			public final static String USUARIO = "jp.campos@uniandes.edu.co";
+			public final static String USUARIO = "ISIS2304A791810";
 			
 			
 			//----------------------------------------------------------------------------------------------------------------------------------

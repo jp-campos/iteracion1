@@ -6,6 +6,12 @@ public class RelacionUniandino {
 
 
 	
+	public final static String POSGRADO =  "Posgrado"; 
+	public final static String MAESTRIA =  "Maestría"; 
+	public final static String PROFESOR = "Profesor";
+	public final static String FAMILIAR = "Familiar"; 
+	public final static String HOTEL =  "Empleado"; 
+	
 	/**
 	 * Id
 	 */
@@ -33,7 +39,7 @@ public class RelacionUniandino {
 	
 	
 	
-	public RelacionUniandino(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") Integer carnet) {
+	public RelacionUniandino(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") int carnet) {
 		
 		this.id = id;
 		this.nombre = nombre;
@@ -65,7 +71,7 @@ public class RelacionUniandino {
 		this.rol = rol;
 	}
 
-	public Integer getCarnet() {
+	public int getCarnet() {
 		return carnet;
 	}
 

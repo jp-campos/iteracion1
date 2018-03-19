@@ -20,7 +20,7 @@ public class DAOHotel {
 		 * Constante para indicar el usuario Oracle del estudiante
 		 */
 		//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-		public final static String USUARIO = "jp.campos@uniandes.edu.co";
+		public final static String USUARIO = "ISIS2304A791810";
 		
 		
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ public class DAOHotel {
 		//----------------------------------------------------------------------------------------------------------------------------------
 
 		/**
-		 * Metodo constructor de la clase DAOBebedor <br/>
+		 * Metodo constructor de la clase DAOHotel <br/>
 		*/
 		public DAOHotel() {
 			recursos = new ArrayList<Object>();
