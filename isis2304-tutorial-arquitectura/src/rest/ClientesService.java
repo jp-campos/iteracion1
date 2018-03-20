@@ -100,9 +100,9 @@ public class ClientesService {
 	}
 	
 	/**
-	 * Metodo GET que trae a todos los bebedores en la Base de datos. <br/>
+	 * Metodo GET que trae a todos los clientes en la Base de datos. <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/bebedores <br/>
+	 * <b>URL: </b> http://localhost:8080/Iteracion1/rest/clientes <br/>
 	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los bebedores que estan en la Base de Datos <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
@@ -124,9 +124,9 @@ public class ClientesService {
 	}
 
 	/**
-	 * Metodo GET que trae al bebedor en la Base de Datos con el ID dado por parametro <br/>
+	 * Metodo GET que trae al cliente en la Base de Datos con el ID dado por parametro <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/bebedores/{id} <br/>
+	 * <b>URL: </b> http://localhost:8080/clientes/rest/bebedores/{id} <br/>
 	 * @return	<b>Response Status 200</b> - JSON Bebedor que contiene al bebedor cuyo ID corresponda al parametro <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
@@ -138,7 +138,7 @@ public class ClientesService {
 		try{
 			AlohaTransactionManager tm = new AlohaTransactionManager( getPath( ) );
 			
-			Cliente bebedor = tm.getBebedorById( id );
+			Cliente bebedor = tm.getClienteById( id );
 			return Response.status( 200 ).entity( bebedor ).build( );			
 		}
 		catch( Exception e )

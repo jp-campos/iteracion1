@@ -78,7 +78,7 @@ public class DAOCliente {
 	 */
 	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.CLIENTE (ID) VALUES (%2$s)", 
+		String sql = String.format("INSERT INTO %1$s.CLIENTE (CLIENTEID) VALUES (%2$s)", 
 									USUARIO, 
 									cliente.getId());
 									
@@ -91,6 +91,9 @@ public class DAOCliente {
 		sql = String.format("INSERT INTO %1$s.RELACIONUNIANDINO (RELACIONUNIANDINOID, CARNET, NOMBRE, ROL) VALUES (%2$s, %3$s, '%4$s', '%5$s, ", 
 							USUARIO, 
 							cliente.getId(), cliente.getCarnet(), cliente.getNombre(), cliente.getRol());
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 		
 	}
 	
@@ -122,52 +125,46 @@ public class DAOCliente {
 	}
 	
 	/**
-	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos <br/>
+	 * Metodo que obtiene la informacion de todos los clientes en la Base de Datos <br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
 	 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public ArrayList<Cliente> getClientes() throws SQLException, Exception {
-		ArrayList<Cliente> bebedores = new ArrayList<Cliente>();
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ROWNUM <= 50", USUARIO);
+//		String sql = String.format( "SELECT %1$s.CLIENTE.RELACIONUNIANDINOID, NOMBRE, ROL, CARNET FROM %1$s.CLIENTE, %1$s.RELACIONUNIANDINO " + 
+//				"WHERE %1$s.CLIENTE.RELACIONUNIANDINOID = %1$s.RELACIONUNIANDINO.RELACIONUNIANDINOID", USUARIO);
+
+		
+		String sql = String.format( "SELECT * FROM %1$s.RELACIONUNIANDINO", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
-		while (rs.next()) {
-			bebedores.add(convertResultSetToBebedor(rs));
+		
+		System.out.println("depues sql");
+		
+		if(rs.next())
+		{
+			int id = rs.getInt("RELACIONUNIANDINOID");
+			System.out.println("uniandino id " + id);
+			
 		}
-		return bebedores;
+		
+		sql = String.format( "SELECT * FROM %1$s.RELACIONUNIANDINO", USUARIO);
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		rs = prepStmt.executeQuery();
+		
+		while (rs.next()) {
+			System.out.println("entra al next");
+			clientes.add(convertResultSetToCliente(rs));
+		}
+		return clientes;
 	}
 	
-	/**
-	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos que se encuentran en la ciudad y con el presupuesto dados por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
-	 * @param ciudad ciudad en la que se encuentran los bebedores
-	 * @param presupuesto presupuesto de los bebedores
-	 * @return lista con la informacion de todos los bebedores que se encuentran en la Base de Datos que cumplen con los criterios de la sentencia SQL
-	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-
-	public ArrayList<Cliente> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws SQLException, Exception{
-		ArrayList<Cliente> bebedores = new ArrayList<Cliente>();
-		
-		String sql = String.format("SELECT * FROM %1$s.BEBEDORES WHERE CIUDAD = '%2$s' AND PRESUPUESTO = '%3$s'", USUARIO, ciudad, presupuesto);
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		
-		recursos.add(prepStmt);
-		ResultSet rs = prepStmt.executeQuery();
-
-		while (rs.next()) {
-			bebedores.add(convertResultSetToBebedor(rs));
-		}
-		return bebedores;
-	}
 
 	/**
 	 * Metodo que obtiene la informacion del bebedor en la Base de Datos que tiene el identificador dado por parametro<br/>
@@ -182,14 +179,14 @@ public class DAOCliente {
 	{
 		Cliente bebedor = null;
 
-		String sql = String.format("SELECT * FROM %1$s.BEBEDORES WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		if(rs.next()) {
-			bebedor = convertResultSetToBebedor(rs);
+			bebedor = convertResultSetToCliente(rs);
 		}
 
 		return bebedor;
@@ -283,20 +280,33 @@ public class DAOCliente {
 	 * @return Clinete cuyos atributos corresponden a los valores asociados a un registro particular de la tabla Clientes.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
-	public Cliente convertResultSetToBebedor(ResultSet resultSet) throws SQLException {
+	public Cliente convertResultSetToCliente(ResultSet resultSet) throws SQLException {
 
+//		System.out.println("Antes de get int");
+//		int id = resultSet.getInt("RELACIONUNIANDINOID");
+//		System.out.println("Despues de get int");
+//		String sql = String.format("SELECT * FROM %1$s.RELACIONUNIANDINO WHERE RELACIONUNIANDINOID = %2$d", USUARIO, id );
+//
+//		
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		ResultSet rs = prepStmt.executeQuery();
+//		
+		System.out.println("En convert result");
 		
-		int id = resultSet.getInt("CLIENTEID");
-		String nombre = resultSet.getString("RELACIONUNIANDINO");
-		String rol = resultSet.getString("ROL"); 
-		int carnet = resultSet.getInt("CARNET");
+		String nombre=""; 
+		String rol = ""; 
+		int carnet = 0;
+		int id = 0;
+		
+		id = resultSet.getInt("RELACIONUNIANDINOID");
+		nombre = resultSet.getString("NOMBRE");
+		rol = resultSet.getString("ROL"); 
+		carnet = resultSet.getInt("CARNET");
 		
 		Cliente cliente = new Cliente(id, nombre, rol, carnet);
-		
-		
-	
 
-		return null;
+		return cliente;
 	}
 
 }

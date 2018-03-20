@@ -251,15 +251,15 @@ public class AlohaTransactionManager {
 	 * @return Bebedor - Bebedor que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Cliente getBebedorById(Long id) throws Exception {
-		DAOCliente daoBebedor = new DAOCliente();
-		Cliente bebedor = null;
+	public Cliente getClienteById(Long id) throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		Cliente cliente = null;
 		try 
 		{
 			this.conn = darConexion();
-			daoBebedor.setConn(conn);
-			bebedor = daoBebedor.findBebedorById(id);
-			if(bebedor == null)
+			daoCliente.setConn(conn);
+			cliente = daoCliente.findBebedorById(id);
+			if(cliente == null)
 			{
 				throw new Exception("El bebedor con el id = " + id + " no se encuentra persistido en la base de datos.");				
 			}
@@ -276,7 +276,7 @@ public class AlohaTransactionManager {
 		} 
 		finally {
 			try {
-				daoBebedor.cerrarRecursos();
+				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
 					this.conn.close();					
 				}
@@ -287,49 +287,7 @@ public class AlohaTransactionManager {
 				throw exception;
 			}
 		}
-		return bebedor;
-	}
-	
-	/**
-	 * Metodo que modela la transaccion que busca en la base de datos el/los bebedores que son de la ciudad y tienen el presupuesto dados por parametro. <br/>
-	 * @param ciudad - Ciudad de los bebedores a buscar. ciudad != null
-	 * @param presupuesto - Presupuesto de los bebedores a buscar. presupuesto != null
-	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
-	 * @throws Exception -  Cualquier error que se genere durante la transaccion
-	 */
-	public List<Cliente> getBebedoresByCiudadAndPresupuesto(String ciudad, String presupuesto) throws Exception {		
-		DAOCliente daoBebedor = new DAOCliente();
-		List<Cliente> bebedores;
-		try 
-		{
-			this.conn = darConexion();
-			daoBebedor.setConn(conn);
-			bebedores = daoBebedor.getBebedoresByCiudadAndPresupuesto(ciudad, presupuesto);
-		}
-		catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} 
-		catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} 
-		finally {
-			try {
-				daoBebedor.cerrarRecursos();
-				if(this.conn!=null){
-					this.conn.close();					
-				}
-			}
-			catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return bebedores;
+		return cliente;
 	}
 	
 
