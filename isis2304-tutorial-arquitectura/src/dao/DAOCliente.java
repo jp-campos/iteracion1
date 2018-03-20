@@ -78,9 +78,9 @@ public class DAOCliente {
 	 */
 	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.CLIENTE (CLIENTEID) VALUES (%2$s)", 
+		String sql = String.format("INSERT INTO %1$s.COMUNIDAD (COMUNIDADID, NOMBRE, ROL, TIPO,  CARNET) VALUES (%2$s, '%3$s','%4$s', '%5$s', %6$s )", 
 									USUARIO, 
-									cliente.getId());
+									cliente.getId(), cliente.getNombre(), cliente.getRol(), "CLIENTE", cliente.getCarnet() );
 									
 		System.out.println(sql);
 		
@@ -138,7 +138,7 @@ public class DAOCliente {
 //				"WHERE %1$s.CLIENTE.RELACIONUNIANDINOID = %1$s.RELACIONUNIANDINO.RELACIONUNIANDINOID", USUARIO);
 
 		
-		String sql = String.format( "SELECT * FROM %1$s.RELACIONUNIANDINO", USUARIO);
+		String sql = String.format( "SELECT * FROM %1$s.COMUNIDAD", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -146,18 +146,7 @@ public class DAOCliente {
 		
 		System.out.println("depues sql");
 		
-		if(rs.next())
-		{
-			int id = rs.getInt("RELACIONUNIANDINOID");
-			System.out.println("uniandino id " + id);
-			
-		}
-		
-		sql = String.format( "SELECT * FROM %1$s.RELACIONUNIANDINO", USUARIO);
-		prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		rs = prepStmt.executeQuery();
-		
+				
 		while (rs.next()) {
 			System.out.println("entra al next");
 			clientes.add(convertResultSetToCliente(rs));
@@ -282,24 +271,13 @@ public class DAOCliente {
 	 */
 	public Cliente convertResultSetToCliente(ResultSet resultSet) throws SQLException {
 
-//		System.out.println("Antes de get int");
-//		int id = resultSet.getInt("RELACIONUNIANDINOID");
-//		System.out.println("Despues de get int");
-//		String sql = String.format("SELECT * FROM %1$s.RELACIONUNIANDINO WHERE RELACIONUNIANDINOID = %2$d", USUARIO, id );
-//
-//		
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//		
-		System.out.println("En convert result");
-		
+	
 		String nombre=""; 
 		String rol = ""; 
 		int carnet = 0;
 		int id = 0;
 		
-		id = resultSet.getInt("RELACIONUNIANDINOID");
+		id = resultSet.getInt("COMUNIDADID");
 		nombre = resultSet.getString("NOMBRE");
 		rol = resultSet.getString("ROL"); 
 		carnet = resultSet.getInt("CARNET");
