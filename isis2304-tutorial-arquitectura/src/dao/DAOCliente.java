@@ -70,7 +70,7 @@ public class DAOCliente {
 
 	
 	/**
-	 * Metodo que agregar la informacion de un nuevo bebedor en la Base de Datos a partir del parametro ingresado<br/>
+	 * Metodo que agregar la informacion de un nuevo cliente en la Base de Datos a partir del parametro ingresado<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
 	 * @param cliente cliente que desea agregar a la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
@@ -86,14 +86,14 @@ public class DAOCliente {
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
-		prepStmt.executeQuery();
+		ResultSet rs = prepStmt.executeQuery();
 		
-		sql = String.format("INSERT INTO %1$s.RELACIONUNIANDINO (RELACIONUNIANDINOID, CARNET, NOMBRE, ROL) VALUES (%2$s, %3$s, '%4$s', '%5$s, ", 
-							USUARIO, 
-							cliente.getId(), cliente.getCarnet(), cliente.getNombre(), cliente.getRol());
-		prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
+	
+		if(rs.next())
+		{
+			
+		}
+		
 		
 	}
 	

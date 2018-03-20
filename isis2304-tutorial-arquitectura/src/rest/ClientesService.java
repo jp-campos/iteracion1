@@ -78,21 +78,22 @@ public class ClientesService {
 	/**
 	 * Metodo Post Que registra un cliente. <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/bebedores <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los bebedores que estan en la Base de Datos <br/>
+	 * <b>URL: </b> http://localhost:8080/Iteracion1/rest/clientes <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene al cliente  <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response postCliente() {
+	public Response postCliente(Cliente cliente) {
 		
 		try {
 			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
 			
-			List<Cliente> clientes;
 		
-			clientes = tm.getAllClientes();
-			return Response.status(200).entity(clientes).build();
+		
+			tm.addCliente(cliente);
+			
+			return Response.status(200).entity(cliente).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -103,7 +104,7 @@ public class ClientesService {
 	 * Metodo GET que trae a todos los clientes en la Base de datos. <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
 	 * <b>URL: </b> http://localhost:8080/Iteracion1/rest/clientes <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los bebedores que estan en la Base de Datos <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los clientes que estan en la Base de Datos <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
@@ -256,10 +257,6 @@ public class ClientesService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene al bebedor que se desea eliminar <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
-	//TODO Requerimiento 6A: Identifique e implemente la anotacion correcta para la realizacion del metodo
-
-	//TODO Requerimiento 6B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
-
 	
 	public Response deleteBebedor(Cliente bebedor) {
 		//TODO Requerimiento 6C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
