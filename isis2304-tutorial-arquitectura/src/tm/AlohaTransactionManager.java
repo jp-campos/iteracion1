@@ -148,7 +148,7 @@ public class AlohaTransactionManager {
 	
 	/*
 	 * AGREGAR UN CLIENTE
-	 * 
+	 * s
 	 */
 	
 	/**
