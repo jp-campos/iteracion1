@@ -18,16 +18,31 @@ import java.util.List;
 import org.codehaus.jackson.annotate.*;
 
 /**
- * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
- * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
- * Clase que representa a los Bebebores del modelo Parranderos
+ * @author Santiago Beltran 	- 	s.beltran@uniandes.edu.co
+ * @author Juan Pablo Campos		-	jp.campos@uniandes.edu.co	
+ *
  */
-public class Cliente extends RelacionUniandino{
+public class Cliente extends Comunidad{
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+	/**
+	 El formato del archivo Json es
+	 
+	 
+	 {
+	 	
+	 
+	 
+	 
+	 }
+	 
+	 
+	 
+	 */
+	
 
 	@JsonProperty(value="reservasHistoricas")
 	private List<Reserva> reservasHistoricas;

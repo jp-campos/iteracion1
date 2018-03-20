@@ -2,15 +2,14 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class RelacionUniandino {
+public class Comunidad {
 
 
 	
-	public final static String POSGRADO =  "Posgrado"; 
-	public final static String MAESTRIA =  "Maestría"; 
+	public final static String ESTUDIANTE =  "Estudiante";
 	public final static String PROFESOR = "Profesor";
 	public final static String FAMILIAR = "Familiar"; 
-	public final static String HOTEL =  "Empleado"; 
+	public final static String HOTEL =  "Hotel"; 
 	
 	/**
 	 * Id
@@ -39,7 +38,7 @@ public class RelacionUniandino {
 	
 	
 	
-	public RelacionUniandino(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") int carnet) {
+	public Comunidad(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") int carnet) {
 		
 		this.id = id;
 		this.nombre = nombre;

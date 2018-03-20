@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class PersonaOperador extends RelacionUniandino{
+public class PersonaOperador extends Comunidad{
 
 	
 	

@@ -23,7 +23,7 @@ import java.util.Properties;
 
 import dao.DAOCliente;
 import vos.Cliente;
-import vos.RelacionUniandino;
+import vos.Comunidad;
 
 /**
  * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
@@ -166,9 +166,7 @@ public class AlohaTransactionManager {
 			this.conn = darConexion(); 
 			daoCliente.setConn(conn);
 			
-			if(!cliente.getRol().equals(RelacionUniandino.FAMILIAR) ||!cliente.getRol().equals(RelacionUniandino.HOTEL) 
-			||!cliente.getRol().equals(RelacionUniandino.MAESTRIA )||!cliente.getRol().equals(RelacionUniandino.MAESTRIA)
-			||!cliente.getRol().equals(RelacionUniandino.PROFESOR))
+			if(!cliente.getRol().equals(Comunidad.FAMILIAR)	&&!cliente.getRol().equals(Comunidad.ESTUDIANTE )&&!cliente.getRol().equals(Comunidad.PROFESOR))
 			{
 				throw new Exception("El cliente no cumple con los requisitos para inscribirse"); 
 			}
