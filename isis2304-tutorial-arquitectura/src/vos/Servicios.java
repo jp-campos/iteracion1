@@ -2,10 +2,35 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Clase que representa los servicios de un alojamiento
+ * @author jp.campos
+ 
+ 	{
+ 		"id": 1, 
+ 		"agua": true, 
+ 		"bañera": true, 
+ 		"cocineta": false, 
+ 		"parquedero": true, 
+ 		"piscina": true, 
+ 		"recepcion24h": false, 
+ 		"restaurante" : true, 
+ 		"sala": false, 
+ 		"tv": true, 
+ 		"wifi": true, 
+ 		"yacuzzi": false
+ 	}
+ 	
+ 
+ 
+ 
+ */
+
+
 public class Servicios {
 
 	@JsonProperty(value="id")
-	private Long id; 
+	private int id; 
 	
 	@JsonProperty(value ="agua")
 	private boolean agua; 
@@ -41,9 +66,10 @@ public class Servicios {
 	@JsonProperty(value = "yacuzzi")
 	private boolean yacuzzi;
 
-	public Servicios(@JsonProperty(value ="agua")boolean agua, @JsonProperty(value = "bañera")boolean bañera, @JsonProperty(value = "cocineta")boolean cocineta,@JsonProperty(value = "parquedero") boolean parquedero, @JsonProperty(value = "piscina")boolean piscina,
+	public Servicios(@JsonProperty(value = "id")int id, @JsonProperty(value ="agua")boolean agua, @JsonProperty(value = "bañera")boolean bañera, @JsonProperty(value = "cocineta")boolean cocineta,@JsonProperty(value = "parquedero") boolean parquedero, @JsonProperty(value = "piscina")boolean piscina,
 			@JsonProperty(value = "recepcion24h")boolean recepcion24h,@JsonProperty(value = "restaurante") boolean restaurante, @JsonProperty(value = "sala")boolean sala,@JsonProperty(value = "tv") boolean tv, @JsonProperty(value = "wifi")boolean wifi,	@JsonProperty(value = "yacuzzi") boolean yacuzzi) {
 	
+		this.id = id; 
 		this.agua = agua;
 		this.bañera = bañera;
 		this.cocineta = cocineta;
@@ -57,11 +83,11 @@ public class Servicios {
 		this.yacuzzi = yacuzzi;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

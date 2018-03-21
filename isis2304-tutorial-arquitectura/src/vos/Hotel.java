@@ -1,17 +1,78 @@
 package vos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Clase que representa un hotel
- * @author K555jp.campos
- *
+ * @author jp.campos
+ 
+ 
+ Clase representada por el formato JSON 
+ 
+ 
+ 
+ {
+ 	"nombre": "Hilton",
+ 	"capacidad": 10,
+ 	"disponibilidad": 5,
+ 	"registroCamaraComercio": "registro120", 
+ 	"registroSuperIntendencia": "registro123", 
+ 	"ubicacion": "Calle 123 # 32-10", 
+ 	"id" : 2,
+ 	"habitaciones": [
+ 		{
+ 		"id" : 1, 
+ 		"descripcion" : "Suite",
+ 		"ocupada" : true,
+ 		"compartida" : false,
+ 		"servicios":{ 			
+		 		"id": 1, 
+		 		"agua": true, 
+		 		"bañera": true, 
+		 		"cocineta": false, 
+		 		"parquedero": true, 
+		 		"piscina": true, 
+		 		"recepcion24h": false, 
+		 		"restaurante" : true, 
+		 		"sala": false, 
+		 		"tv": true, 
+		 		"wifi": true, 
+		 		"yacuzzi": false
+ 		}}, 
+ 		{
+ 		"id" : 2, 
+ 		"descripcion" : "Suite",
+ 		"ocupada" : true,
+ 		"compartida" : false,
+ 		"servicios":{ 			
+			 		"id": 1, 
+			 		"agua": true, 
+			 		"bañera": true, 
+			 		"cocineta": false, 
+			 		"parquedero": true, 
+			 		"piscina": true, 
+			 		"recepcion24h": false, 
+			 		"restaurante" : true, 
+			 		"sala": false, 
+			 		"tv": true, 
+			 		"wifi": true, 
+			 		"yacuzzi": false
+ 					} 	
+ 		}]
+ }
+ 
+ 
+ 
+ 
+ 
  */
 public class Hotel {
 	
-	
+	@JsonProperty(value="nombre")
+	private String nombre;
 	
 	@JsonProperty(value="capacidad")
 	private int capacidad; 
@@ -35,9 +96,10 @@ public class Hotel {
 	private List<Habitacion> habitaciones; 
 
 	
-	public Hotel(@JsonProperty(value= "habitaciones")List<Habitacion> habitaciones,@JsonProperty(value="id")int id,@JsonProperty(value="capacidad")int capacidad, @JsonProperty(value = "disponibilidad")int disponibilidad, @JsonProperty(value="registroCamaraComercio")String registroCamaraComercio,
+	public Hotel(@JsonProperty(value ="nombre")String nombre, @JsonProperty(value= "habitaciones")List<Habitacion> habitaciones,@JsonProperty(value="id")int id,@JsonProperty(value="capacidad")int capacidad, @JsonProperty(value = "disponibilidad")int disponibilidad, @JsonProperty(value="registroCamaraComercio")String registroCamaraComercio,
 			@JsonProperty(value="registroSuperIntendencia")String registroSuperIntendencia, @JsonProperty(value = "ubicacion")String ubicacion)
 	{
+		this.nombre = nombre;
 		this.habitaciones = habitaciones;
 		this.capacidad = capacidad; 
 		this.disponibilidad = disponibilidad; 
@@ -46,9 +108,22 @@ public class Hotel {
 		this.ubicacion = ubicacion; 
 		this.id =id;
 		
+		
 	}
 	
 	
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
 
 	public int getId() {
 		return id;

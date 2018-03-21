@@ -22,9 +22,13 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.DAOCliente;
+import dao.DAOHabitacion;
+import dao.DAOHotel;
 import dao.DAOOperador;
 import vos.Cliente;
 import vos.Comunidad;
+import vos.Habitacion;
+import vos.Hotel;
 import vos.PersonaOperador;
 
 /**
@@ -148,10 +152,12 @@ public class AlohaTransactionManager {
 	// METODOS TRANSACCIONALES
 	//----------------------------------------------------------------------------------------------------------------------------------
 	
-	/*
-	 * AGREGAR UN CLIENTE
-	 * s
-	 */
+	
+	
+	
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// METODOS AGREGAR
+	//----------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
 	 * Metodo que modela la transaccion que agrega un bebedor a la base de datos. <br/>
@@ -253,7 +259,102 @@ public class AlohaTransactionManager {
 			}
 		}
 	}
+	/**
+	 * Metodo que modela la transaccion que agrega un hotel/hostal a la base de datos. <br/>
+	 * <b> post: </b> se ha agregado el operador que entra como parametro <br/>
+	 * @param hotel - el hotel a agregar. hotel != null
+	 * @throws Exception - Cualquier error que se genere agregando el hotel
+	 */
+	public void addHotel(Hotel hotel) throws Exception 
+	{
+		
+		DAOHotel daoHotel = new DAOHotel( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoHotel.setConn(conn);
+			
+			
+			daoHotel.addHotel(hotel);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 	
+	/**
+	 * Metodo que modela la transaccion que agrega una habitación de un respectivo operador a la base de datos. <br/>
+	 * <b> post: </b> se ha agregado el operador que entra como parametro <br/>
+	 * @param bebedor - el operador a agregar. bebedor != null
+	 * @throws Exception - Cualquier error que se genere agregando el bebedor
+	 */
+	public void addHabitacion(Habitacion habitacion, int id) throws Exception 
+	{
+		
+		DAOHabitacion daoHabitacion = new DAOHabitacion( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoHabitacion.setConn(conn);
+			
+			daoHabitacion.addHabitacion(habitacion, id);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHabitacion.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	public void addServicios()
+	{
+		
+		
+	}
+	//-----------------------------------------------
+	// METODOS GET
+	//-----------------------------------------------
 	/**
 	 * Metodo que modela la transaccion que retorna todos los bebedores de la base de datos. <br/>
 	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.

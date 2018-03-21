@@ -35,7 +35,7 @@ import vos.Cliente;
 /**
  * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
  * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
- * Clase que expone servicios REST con ruta base: http://localhost:8080/TutorialParranderos/rest/bebedores/...
+ * Clase que expone servicios REST con ruta base: http://localhost:8080/Iteracion1/rest/clientes/...
  */
 @Path("clientes")
 public class ClientesService {

@@ -2,10 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.Apartamento;
+import vos.Cliente;
+import vos.Habitacion;
 import vos.PersonaOperador;
 
 public class DAOHabitacion {
@@ -51,29 +54,21 @@ public class DAOHabitacion {
 		//----------------------------------------------------------------------------------------------------------------------------------
 	
 
-		public void addHabitacion(PersonaOperador operador, Apartamento apto) throws SQLException, Exception {
+		public void addHabitacion(Habitacion habitacion, int idHotel) throws SQLException, Exception {
 
-			String sql = String.format("INSERT INTO %1$s.APARTAMENTO (AMOBLADO, OCUPADO, UBICACION, APARTAMENTOID, PERSONAOPERADORID) VALUES (%2$s,%3$s,'%4$s',%5$s, %6$s )", 
+			String sql = String.format("INSERT INTO %1$s.HABITACION (COMPARTIDA, DESCRIPCION, OCUPADA, HABITACIONID, HOTELERIAID) VALUES (%2$s,'%3$s',%4$s,%5$s, %6$s )", 
 										USUARIO, 
-										apto.isAmoblado() ? 1 : 0, 
-										apto.isOcupado() ? 1:0, 
-										apto.getUbicacion(), 
-										apto.getId(), 
-										operador.getId());
+										habitacion.isCompartida() ? 1 : 0, 
+										habitacion.getDescripcion(), 
+										habitacion.getOcupada()? 1 : 0, 
+										habitacion.getId(), 
+										idHotel);
 										
-			System.out.println(sql);
 			
+				
+			
+			System.out.println(sql);
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
-			recursos.add(prepStmt);
-			prepStmt.executeQuery();
-			
-			sql = String.format("INSERT INTO %1$s.PERSONAOPERADOR (APARTAMENTOID) VALUES (%2$s) ", 
-								USUARIO, 
-								apto.getId());
-			
-			
-			System.out.println(sql);
-			prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
 			
@@ -101,4 +96,65 @@ public class DAOHabitacion {
 			
 		}
 
+		//----------------------------------------------------------------------------------------------------------------------------------
+		// METODOS AUXILIARES
+		//----------------------------------------------------------------------------------------------------------------------------------
+		
+		/**
+		 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro <br/>
+		 * <b>Postcondicion: </b> el atributo conn es inicializado <br/>
+		 * @param connection la conexion generada en el TransactionManager para la comunicacion con la Base de Datos
+		 */
+		public void setConn(Connection connection){
+			this.conn = connection;
+		}
+		
+		
+		
+		
+		/**
+		 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos<br/>
+		 * <b>Postcondicion: </b> Todos los recurso del arreglo de recursos han sido cerrados.
+		 */
+		public void cerrarRecursos() {
+			for(Object ob : recursos){
+				if(ob instanceof PreparedStatement)
+					try {
+						((PreparedStatement) ob).close();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+			}
+		}
+		
+		
+
+		
+		/**
+		 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla CLIENTES) en una instancia de la clase Cliente	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
+		 * @return Cliente cuyos atributos corresponden a los valores asociados a un registro particular de la tabla Clientes.
+		 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+		 */
+		public Habitacion convertResultSetToHabitacion(ResultSet resultSet) throws SQLException {
+
+		
+			Habitacion habitacion = null;
+			
+			
+			
+			
+			int id = resultSet.getInt("HABITACIONID");
+			String descripcion = resultSet.getString("DESCRIPCION"); 
+			boolean compartida = resultSet.getBoolean("COMPARTIDA"); 
+			boolean ocupada = resultSet.getBoolean("OCUPADA");
+			
+			
+			
+			habitacion = new Habitacion(null, id, compartida, descripcion, ocupada);
+			
+			
+			
+			return habitacion;
+		}
+		
 }
