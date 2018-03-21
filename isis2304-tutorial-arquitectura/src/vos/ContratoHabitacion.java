@@ -34,7 +34,7 @@ public class ContratoHabitacion extends Reserva{
 	
 
 	
-	public ContratoHabitacion(@JsonProperty(value="id")int id,@JsonProperty(value = "fechaInicial")String fechaInicial, @JsonProperty(value = "fechaFinal")String fechaFinal,@JsonProperty(value = "precio")int precio,	@JsonProperty(value="bañoPrivado")boolean accesoCocina,@JsonProperty(value="bañoPrivado") boolean bañoPrivado,
+	public ContratoHabitacion(@JsonProperty(value="id")int id,@JsonProperty(value = "fechaInicial")String fechaInicial, @JsonProperty(value = "fechaFinal")String fechaFinal,@JsonProperty(value = "precio")int precio,	@JsonProperty(value="accesoCocina")boolean accesoCocina,@JsonProperty(value="bañoPrivado") boolean bañoPrivado,
 			@JsonProperty(value="comidas")boolean comidas, @JsonProperty(value="duracion")boolean duracion,
 			@JsonProperty(value="habitacionIndividual")boolean habitacionIndividual, @JsonProperty(value="precioServicios")int precioServicios) {
 		

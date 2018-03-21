@@ -75,7 +75,29 @@ public class ClientesService {
 	 * REGISTRAR UN CLIENTE
 	 */
 	
-	
+	/**
+	 * Metodo Post Que registra un cliente. <br/>
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>URL: </b> http://localhost:8080/Iteracion1/rest/clientes <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene al cliente  <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */			
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response postCliente(Cliente cliente) {
+		
+		try {
+			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+		
+			tm.addCliente(cliente);
+			
+			return Response.status(200).entity(cliente).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 	
 	/**
 	 * Metodo GET que trae a todos los operadores en la Base de datos. <br/>
@@ -158,34 +180,10 @@ public class ClientesService {
 		}
 	}
 
-	/**
-	 * Metodo que recibe un bebedor en formato JSON y lo agrega a la Base de Datos <br/>
-	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al bebedor. <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/bebedores <br/>
-	 * @param bebedor JSON con la informacion del bebedor que se desea agregar
-	 * @return	<b>Response Status 200</b> - JSON que contiene al bebedor que ha sido agregado <br/>
-	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
-	 */
-	@POST
-	@Path("clientes")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addBebedor(Cliente cliente) {
-		
-		 
-		try {
-			AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
-			tm.addCliente(cliente);
-			 return Response.status( 200 ).entity( cliente ).build( );
-		} catch (Exception e) {
-			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
-		}
-		
-		
-	}
+
 	
 
 	
+
 
 }

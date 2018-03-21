@@ -58,7 +58,6 @@ public class OperadoresService {
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@POST
-	@Path("operadores")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response postOperador(PersonaOperador operador) {

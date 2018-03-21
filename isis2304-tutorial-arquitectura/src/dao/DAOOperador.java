@@ -58,7 +58,7 @@ public class DAOOperador {
 		public void addOperador(PersonaOperador operador) throws SQLException, Exception {
 			
 			String sql = String.format("INSERT INTO %1$s.COMUNIDAD (CARNET, NOMBRE, ROL, COMUNIDADID, TIPO)"
-					+ " VALUES (%2$s, '%3$s', '%4$', %5$s, 'OPERADOR')", 
+					+ " VALUES (%2$s, '%3$s', '%4$s', %5$s, 'OPERADOR')", 
 										USUARIO, 
 										operador.getCarnet(), operador.getNombre(), operador.getRol(), operador.getId() );
 										

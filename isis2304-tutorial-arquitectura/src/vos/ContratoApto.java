@@ -28,7 +28,7 @@ public class ContratoApto extends Reserva{
 
 
 	public ContratoApto(@JsonProperty(value="id")int id,@JsonProperty(value = "fechaIncial")String fechaInicial,@JsonProperty(value = "fechaFinal") String fechaFinal, @JsonProperty(value = "precio")int precio, 
-			@JsonProperty(value = "incluyeServPublicos")boolean incluyeServPublicos, @JsonProperty(value="incluyeServPublicos")boolean incluyeAdmin, @JsonProperty(value = "precioServicio")int precioServicio ) {
+			@JsonProperty(value = "incluyeServPublicos")boolean incluyeServPublicos, @JsonProperty(value="incluyeAdmin")boolean incluyeAdmin, @JsonProperty(value = "precioServicio")int precioServicio ) {
 		
 		super(id,fechaInicial, fechaFinal, precio);
 		
