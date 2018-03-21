@@ -4,6 +4,11 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Clase que representa un hotel
+ * @author K555jp.campos
+ *
+ */
 public class Hotel {
 	
 	

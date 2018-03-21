@@ -2,6 +2,11 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Clase que representa un contrato de habitación
+ * @author jp.campos
+ *
+ */
 public class ContratoHabitacion extends Reserva{
 	
 	@JsonProperty(value="accesoCocina")

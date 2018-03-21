@@ -2,6 +2,11 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Clase que representa una habitación
+ * @author jp.campos
+ *
+ */
 public class Habitacion {
 
 	

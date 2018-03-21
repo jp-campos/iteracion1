@@ -2,6 +2,11 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Clase que representa un integrante de la comunidad
+ * @author jp.campos
+ *
+ */
 public class Comunidad {
 
 

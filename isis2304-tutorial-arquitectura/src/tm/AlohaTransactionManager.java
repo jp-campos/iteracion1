@@ -22,8 +22,10 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.DAOCliente;
+import dao.DAOOperador;
 import vos.Cliente;
 import vos.Comunidad;
+import vos.PersonaOperador;
 
 /**
  * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
@@ -202,6 +204,57 @@ public class AlohaTransactionManager {
 	}
 	
 	/**
+	 * Metodo que modela la transaccion que agrega un operador a la base de datos. <br/>
+	 * <b> post: </b> se ha agregado el operador que entra como parametro <br/>
+	 * @param bebedor - el operador a agregar. bebedor != null
+	 * @throws Exception - Cualquier error que se genere agregando el bebedor
+	 */
+	public void addOperador(PersonaOperador operador) throws Exception 
+	{
+		
+		DAOOperador daoOperador = new DAOOperador( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoOperador.setConn(conn);
+			
+			if(!operador.getRol().equals(Comunidad.FAMILIAR)	&&!operador.getRol().equals(Comunidad.ESTUDIANTE )&&!operador.getRol().equals(Comunidad.PROFESOR)
+					&& !operador.getRol().equals(Comunidad.HOTEL))
+			{
+				throw new Exception("El operador no cumple con los requisitos para inscribirse"); 
+			}
+			
+			
+			System.out.println("Pasa el exception de tm");
+			daoOperador.addOperador(operador);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
 	 * Metodo que modela la transaccion que retorna todos los bebedores de la base de datos. <br/>
 	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
 	 * @throws Exception -  Cualquier error que se genere durante la transaccion
@@ -242,6 +295,49 @@ public class AlohaTransactionManager {
 		}
 		return clientes;
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los bebedores de la base de datos. <br/>
+	 * @return List<Bebedor> - Lista de bebedores que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<PersonaOperador> getAllOperadores() throws Exception {
+		DAOOperador daoOperador = new DAOOperador();
+		List<PersonaOperador> operadores;
+		try 
+		{
+			this.conn = darConexion();
+			daoOperador.setConn(conn);
+			
+			
+			operadores = daoOperador.getAllOperadores();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return operadores;
+	}
+	
 	
 	/**
 	 * Metodo que modela la transaccion que busca el bebedor en la base de datos que tiene el ID dado por parametro. <br/>

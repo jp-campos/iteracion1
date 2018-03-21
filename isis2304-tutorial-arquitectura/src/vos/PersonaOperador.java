@@ -1,8 +1,27 @@
 package vos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+
+/**
+ * Clase que representa un operador
+ * @author jp.campos
+ 
+ El formato JSON de esta clase es
+ 
+  	{
+        "id": 101,
+        "nombre": "Hernando",
+        "rol": "Empleado",
+        "carnet": 201631726
+   
+	 }
+ 
+ 
+ 
+ */
 
 public class PersonaOperador extends Comunidad{
 
@@ -28,10 +47,21 @@ public class PersonaOperador extends Comunidad{
 	
 		
 		
-		public PersonaOperador(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") Integer carnet) {
+		public PersonaOperador(@JsonProperty(value="id")int id, @JsonProperty(value="nombre")String nombre,
+				@JsonProperty(value="rol")String rol,@JsonProperty(value="carnet") int carnet) 
+		{
 		
 		super(id, nombre, rol, carnet);
-		
+		setId(id);
+		setNombre(nombre);
+		setRol(rol);
+		setCarnet(carnet);
+		hotel = null; 
+		contratoApto = null; 
+		contratoHabitacion = null; 
+		vivienda = null; 
+		apartamento = null; 
+		habitaciones = new ArrayList<>(); 
 		}
 
 		

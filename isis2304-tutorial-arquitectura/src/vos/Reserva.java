@@ -2,6 +2,22 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Clase que representa una reserva
+ * 
+	El formato del archivo Json es
+	
+	{
+		"fechaInicial": "13-03-2018", 
+		"fechaFinal": "13-03-2018",
+		"precio": 150, 
+		"id": 1
+		"cliente" = 1
+	}
+	
+ * @author jp.campos
+ *
+ */
 public class Reserva {
 
 	

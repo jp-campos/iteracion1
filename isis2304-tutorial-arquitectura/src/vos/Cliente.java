@@ -18,8 +18,21 @@ import java.util.List;
 import org.codehaus.jackson.annotate.*;
 
 /**
- * @author Santiago Beltran 	- 	s.beltran@uniandes.edu.co
+ *Clase que representa un cliente
  * @author Juan Pablo Campos		-	jp.campos@uniandes.edu.co	
+ *  El formato del archivo Json es
+	 
+	 
+	 {
+        "id": 1,
+        "nombre": "Bobi",
+        "rol": "Estudiante",
+        "carnet": 201630726,
+        "reservaActual": null,
+        "reservasHistoricas": []
+	 }
+	 
+	 
  *
  */
 public class Cliente extends Comunidad{
@@ -29,17 +42,7 @@ public class Cliente extends Comunidad{
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 El formato del archivo Json es
-	 
-	 
-	 {
-	 	
-	 
-	 
-	 
-	 }
-	 
-	 
+	
 	 
 	 */
 	
@@ -81,15 +84,6 @@ public class Cliente extends Comunidad{
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	
-	public List<Reserva> getReservas()
-	{
-		return reservasHistoricas;
-	}
-	
-	public void setReservas(List <Reserva> reservas)
-	{
-		this.reservasHistoricas = reservas; 
-	}
 
 	public void agregarReservaHistorica(Reserva reserva)
 	{

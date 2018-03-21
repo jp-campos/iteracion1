@@ -87,12 +87,7 @@ public class DAOCliente {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-		
-	
-		if(rs.next())
-		{
-			
-		}
+
 		
 		
 	}
@@ -101,23 +96,11 @@ public class DAOCliente {
 	public void cancelarReserva(Cliente cliente, Reserva reserva)throws SQLException
 	{
 		
-		String sql = String.format("UPDATE %1$s.CLIENTE SET RESERVAACTUAL = NULL WHERE CLIENTEID = %2$s ", USUARIO, cliente.getId());
+		String sql = String.format("UPDATE %1$s.COMUNIDAD SET RESERVAACTUAL = NULL WHERE COMUNIDADID = %2$s ", USUARIO, cliente.getId());
 		
 		System.out.println(sql);
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-		
-		sql = String.format("UPDATE %1$s.HABITACION SET HABITACION RESERVAID = NULL WHERE RESERVAID = %2$s ",USUARIO, reserva.getId() );
-		System.out.println(sql);
-		prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-		
-		sql = String.format("DELETE FROM %1$s.RESERVA WHERE RESERVAID = 2%$s ", USUARIO, reserva.getId());
-		System.out.println(sql);
-		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 		
@@ -134,11 +117,8 @@ public class DAOCliente {
 	public ArrayList<Cliente> getClientes() throws SQLException, Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-//		String sql = String.format( "SELECT %1$s.CLIENTE.RELACIONUNIANDINOID, NOMBRE, ROL, CARNET FROM %1$s.CLIENTE, %1$s.RELACIONUNIANDINO " + 
-//				"WHERE %1$s.CLIENTE.RELACIONUNIANDINOID = %1$s.RELACIONUNIANDINO.RELACIONUNIANDINOID", USUARIO);
-
 		
-		String sql = String.format( "SELECT * FROM %1$s.COMUNIDAD", USUARIO);
+		String sql = String.format( "SELECT * FROM %1$s.COMUNIDAD WHERE TIPO = 'CLIENTE'", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -149,7 +129,11 @@ public class DAOCliente {
 				
 		while (rs.next()) {
 			System.out.println("entra al next");
-			clientes.add(convertResultSetToCliente(rs));
+			
+			Cliente cliente = convertResultSetToCliente(rs);
+			
+			if(cliente!= null)
+			clientes.add(cliente);
 		}
 		return clientes;
 	}
@@ -264,14 +248,15 @@ public class DAOCliente {
 
 	
 	/**
-	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla CLIENTES) en una instancia de la clase Bebedor.
-	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
-	 * @return Clinete cuyos atributos corresponden a los valores asociados a un registro particular de la tabla Clientes.
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla CLIENTES) en una instancia de la clase Cliente	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
+	 * @return Cliente cuyos atributos corresponden a los valores asociados a un registro particular de la tabla Clientes.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Cliente convertResultSetToCliente(ResultSet resultSet) throws SQLException {
 
 	
+		Cliente cliente = null;
+		
 		String nombre=""; 
 		String rol = ""; 
 		int carnet = 0;
@@ -281,9 +266,14 @@ public class DAOCliente {
 		nombre = resultSet.getString("NOMBRE");
 		rol = resultSet.getString("ROL"); 
 		carnet = resultSet.getInt("CARNET");
+		String tipo = resultSet.getString("TIPO");
 		
-		Cliente cliente = new Cliente(id, nombre, rol, carnet);
-
+		if(tipo.equals("CLIENTE"))
+		{
+		cliente = new Cliente(id, nombre, rol, carnet);
+		}
+		
+		
 		return cliente;
 	}
 

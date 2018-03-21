@@ -3,7 +3,11 @@ package vos;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
-
+/**
+ * Clase que representa un hostal
+ * @author K555jp.campos
+ *
+ */
 public class Hostal extends Hotel{
 
 	
