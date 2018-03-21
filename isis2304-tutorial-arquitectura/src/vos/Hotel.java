@@ -108,7 +108,8 @@ public class Hotel {
 		this.ubicacion = ubicacion; 
 		this.id =id;
 		
-		
+		if(habitaciones == null)
+			habitaciones = new ArrayList<>(); 
 	}
 	
 	

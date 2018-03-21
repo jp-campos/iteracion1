@@ -133,7 +133,7 @@ public class ClientesService {
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getBebedorById( @PathParam( "id" ) Long id )
+	public Response getClienteById( @PathParam( "id" ) int id )
 	{
 		try{
 			AlohaTransactionManager tm = new AlohaTransactionManager( getPath( ) );

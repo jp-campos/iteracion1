@@ -153,7 +153,7 @@ public class DAOHotel {
 		{
 			Hotel hotel = null;
 
-			String sql = String.format("SELECT * FROM %1$s.HOTELERIA WHERE ID = %2$d", USUARIO, id); 
+			String sql = String.format("SELECT * FROM %1$s.HOTELERIA WHERE HOTELERIAID = %2$d", USUARIO, id); 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);

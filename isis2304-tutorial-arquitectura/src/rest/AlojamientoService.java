@@ -5,8 +5,10 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -58,7 +60,7 @@ public class AlojamientoService {
 		/**
 		 * Metodo Post Que registra un cliente. <br/>
 		 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-		 * <b>URL: </b> http://localhost:8080/Iteracion1/rest/clientes <br/>
+		 * <b>URL: </b> http://localhost:8080/Iteracion1/rest/alojamientos/{{id}}/hotel <br/>
 		 * @return	<b>Response Status 200</b> - JSON que contiene al cliente  <br/>
 		 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 		 */			
@@ -69,17 +71,11 @@ public class AlojamientoService {
 		public Response postHotel(Hotel hotel) {
 			
 			try {
+				System.out.println("entra al post disponibilidad " + hotel.getDisponibilidad());
 				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
 				
 				
 				tm.addHotel(hotel);
-				
-				List<Habitacion> habitaciones = hotel.getHabitaciones(); 
-				
-				for (Habitacion habitacion : habitaciones) {
-					
-					tm.addHabitacion(habitacion, hotel.getId());
-				}
 				
 				
 				return Response.status(200).entity(hotel).build();
@@ -109,6 +105,59 @@ public class AlojamientoService {
 		}
 		
 		
+		@POST
+		@Path("{id: \\d+}/habitacion")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response postHabitacion(Habitacion habitacion,  @PathParam( "id" ) int id) {
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				tm.addHabitacionPersona(habitacion, id);
+				
+				return Response.status(200).entity(habitacion).build();
+			} 
+			catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+		}
+		
+		
+		@POST
+		@Path("{id: \\d+}/apartamento")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response postApartamento(Habitacion habitacion,  @PathParam( "id" ) int id) {
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				tm.addHabitacionPersona(habitacion, id);
+				
+				return Response.status(200).entity(habitacion).build();
+			} 
+			catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+		}
+		
+		
+		@GET
+		@Path("/hotel")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response getAllHoteles() {
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				List<Hotel> hoteles = tm.getAllHoteles();
+				
+				return Response.status(200).entity(hoteles).build();
+			} 
+			catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+		}
+		
+		//-------------//-------------//-------------//-------------
+		//							DELETES
+		//-------------//-------------//-------------//-------------
 		
 		@DELETE
 		@Path("/hotel")

@@ -54,7 +54,7 @@ public class DAOHabitacion {
 		//----------------------------------------------------------------------------------------------------------------------------------
 	
 
-		public void addHabitacion(Habitacion habitacion, int idHotel) throws SQLException, Exception {
+		public void addHabitacionHotel(Habitacion habitacion, int idHotel) throws SQLException, Exception {
 
 			String sql = String.format("INSERT INTO %1$s.HABITACION (COMPARTIDA, DESCRIPCION, OCUPADA, HABITACIONID, HOTELERIAID) VALUES (%2$s,'%3$s',%4$s,%5$s, %6$s )", 
 										USUARIO, 
@@ -74,23 +74,31 @@ public class DAOHabitacion {
 			
 		}
 		
-		
-		public void deleteHabitacion(Apartamento apto) throws SQLException
-		{
-			
-			String sql = String.format("UPDATE %1$s.PERSONAOPERADOR SET APARTAMENTOID = NULL WHERE APARTAMENTOID = %2$s ", 
-						USUARIO, apto.getId());
+		public void addHabitacionPersona(Habitacion habitacion, int idPersona) throws SQLException, Exception {
+
+			String sql = String.format("INSERT INTO %1$s.HABITACION (COMPARTIDA, DESCRIPCION, OCUPADA, HABITACIONID, COMUNIDADID) VALUES (%2$s,'%3$s',%4$s,%5$s, %6$s )", 
+										USUARIO, 
+										habitacion.isCompartida() ? 1 : 0, 
+										habitacion.getDescripcion(), 
+										habitacion.getOcupada()? 1 : 0, 
+										habitacion.getId(), 
+										idPersona);
 			
 			System.out.println(sql);
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
 			
-			sql = String.format("DELETE FROM %1$s.APARTAMENTO WHERE APARTAMENTOID = %2$s ", 
-					USUARIO, apto.getId());
+		}
+		
+		public void deleteHabitacion(Habitacion habitacion) throws SQLException
+		{
+			
+			String sql = String.format("DELETE FROM  %1$s.HABITACION  WHERE HABITACIONID = %2$s ", 
+						USUARIO, habitacion.getId());
 			
 			System.out.println(sql);
-			prepStmt = conn.prepareStatement(sql);
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
 			

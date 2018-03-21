@@ -148,21 +148,21 @@ public class DAOCliente {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Cliente findBebedorById(Long id) throws SQLException, Exception 
+	public Cliente findClienteById(int id) throws SQLException, Exception 
 	{
-		Cliente bebedor = null;
+		Cliente cliente = null;
 
-		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.COMUNIDAD WHERE COMUNIDADID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		if(rs.next()) {
-			bebedor = convertResultSetToCliente(rs);
+			cliente = convertResultSetToCliente(rs);
 		}
 
-		return bebedor;
+		return cliente;
 	}
 	
 	
