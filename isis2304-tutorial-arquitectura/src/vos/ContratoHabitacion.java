@@ -20,7 +20,7 @@ public class ContratoHabitacion extends Reserva{
 	private boolean comidas;
 	
 	@JsonProperty(value="duracion")
-	private boolean duracion;
+	private int duracion;
 	
 	@JsonProperty(value="habitacionIndividual")
 	private boolean habitacionIndividual;
@@ -35,7 +35,7 @@ public class ContratoHabitacion extends Reserva{
 
 	
 	public ContratoHabitacion(@JsonProperty(value="id")int id,@JsonProperty(value = "fechaInicial")String fechaInicial, @JsonProperty(value = "fechaFinal")String fechaFinal,@JsonProperty(value = "precio")int precio,	@JsonProperty(value="accesoCocina")boolean accesoCocina,@JsonProperty(value="bañoPrivado") boolean bañoPrivado,
-			@JsonProperty(value="comidas")boolean comidas, @JsonProperty(value="duracion")boolean duracion,
+			@JsonProperty(value="comidas")boolean comidas, @JsonProperty(value="duracion")int duracion,
 			@JsonProperty(value="habitacionIndividual")boolean habitacionIndividual, @JsonProperty(value="precioServicios")int precioServicios) {
 		
 		super(id, fechaInicial, fechaFinal, precio);
@@ -85,11 +85,11 @@ public class ContratoHabitacion extends Reserva{
 		this.comidas = comidas;
 	}
 
-	public boolean isDuracion() {
+	public int getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(boolean duracion) {
+	public void setDuracion(int duracion) {
 		this.duracion = duracion;
 	}
 

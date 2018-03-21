@@ -33,8 +33,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
  		
  		
  		}
- 	
  	}
+ 
  
  */
 public class Habitacion {

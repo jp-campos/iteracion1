@@ -77,10 +77,13 @@ public class DAOHotel {
 										hostal.getHoraCierre());
 										
 			System.out.println(sql);
-			
+			System.out.println("1");
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			System.out.println("2");
 			recursos.add(prepStmt);
+			System.out.println("3");
 			prepStmt.executeQuery();
+			System.out.println("4");
 			
 			}else 
 			{
@@ -96,13 +99,11 @@ public class DAOHotel {
 											hotel.getNombre());
 											
 				System.out.println(sql);
-				
+		
 				PreparedStatement prepStmt = conn.prepareStatement(sql);
 				recursos.add(prepStmt);
 				prepStmt.executeQuery();
-				
-										
-				
+					
 			}
 			
 		}

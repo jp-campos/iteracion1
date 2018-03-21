@@ -14,7 +14,7 @@ public class ContratoApto extends Reserva{
 	private boolean incluyeServPublicos;
 	
 	@JsonProperty(value="precioServicio")
-	private int precioServicio; 
+	private boolean precioServicio; 
 	
 	@JsonProperty(value="incluyeAdmin")
 	private boolean incluyeAdmin;
@@ -28,7 +28,7 @@ public class ContratoApto extends Reserva{
 
 
 	public ContratoApto(@JsonProperty(value="id")int id,@JsonProperty(value = "fechaIncial")String fechaInicial,@JsonProperty(value = "fechaFinal") String fechaFinal, @JsonProperty(value = "precio")int precio, 
-			@JsonProperty(value = "incluyeServPublicos")boolean incluyeServPublicos, @JsonProperty(value="incluyeAdmin")boolean incluyeAdmin, @JsonProperty(value = "precioServicio")int precioServicio ) {
+			@JsonProperty(value = "incluyeServPublicos")boolean incluyeServPublicos, @JsonProperty(value="incluyeAdmin")boolean incluyeAdmin, @JsonProperty(value = "precioServicio")boolean precioServicio ) {
 		
 		super(id,fechaInicial, fechaFinal, precio);
 		
@@ -59,12 +59,12 @@ public class ContratoApto extends Reserva{
 	}
 
 
-	public int getPrecioServicio() {
+	public boolean getPrecioServicio() {
 		return precioServicio;
 	}
 
 
-	public void setPrecioServicio(int precioServicio) {
+	public void setPrecioServicio(boolean precioServicio) {
 		this.precioServicio = precioServicio;
 	}
 

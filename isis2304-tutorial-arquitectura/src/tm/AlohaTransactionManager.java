@@ -27,12 +27,14 @@ import dao.DAOCliente;
 import dao.DAOHabitacion;
 import dao.DAOHotel;
 import dao.DAOOperador;
+import dao.DAOReserva;
 import vos.Apartamento;
 import vos.Cliente;
 import vos.Comunidad;
 import vos.Habitacion;
 import vos.Hotel;
 import vos.PersonaOperador;
+import vos.Reserva;
 
 /**
  * @author Juan Pablo Campos
@@ -262,6 +264,52 @@ public class AlohaTransactionManager {
 			}
 		}
 	}
+	
+
+	
+	/**
+	 * Metodo que modela la transaccion que hace una reserva . <br/>
+	 * <b> post: </b> se ha hecho la reserva <br/>
+	 * @param hotel - la reserva. reserva != null
+	 * @throws Exception - Cualquier error que se genere agregando el hotel
+	 */
+	public void addReserva(Reserva reserva) throws Exception 
+	{
+		
+		DAOReserva daoReserva = new DAOReserva( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoReserva.setConn(conn);
+			daoReserva.addReserva(reserva);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
 	/**
 	 * Metodo que modela la transaccion que agrega un hotel/hostal a la base de datos. <br/>
 	 * <b> post: </b> se ha agregado el operador que entra como parametro <br/>
@@ -276,8 +324,6 @@ public class AlohaTransactionManager {
 		{
 			this.conn = darConexion(); 
 			daoHotel.setConn(conn);
-			
-			
 			daoHotel.addHotel(hotel);
 
 		}
