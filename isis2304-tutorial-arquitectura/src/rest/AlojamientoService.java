@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
 import tm.AlohaTransactionManager;
 import vos.Cliente;
@@ -107,7 +110,50 @@ public class AlojamientoService {
 		
 		
 		
+		@DELETE
+		@Path("/hotel")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response deleteHotel(Hotel hotel) {
+			
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				tm.deleteHotel(hotel);
+				 return Response.status( 200 ).entity( hotel ).build( );
+			} catch (Exception e) {
+				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+			}
+		}
 		
+		@DELETE
+		@Path("/hostal")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response deleteHostal(Hostal hotel) {
+			
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				tm.deleteHotel(hotel);
+				 return Response.status( 200 ).entity( hotel ).build( );
+			} catch (Exception e) {
+				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+			}
+		}
+		
+		@DELETE
+		@Path("/habitacion")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response deleteHabitacion(Habitacion habitacion) {
+			
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				tm.deleteHabitacion(habitacion);
+				 return Response.status( 200 ).entity( habitacion ).build( );
+			} catch (Exception e) {
+				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+			}
+		}
 		
 
 }

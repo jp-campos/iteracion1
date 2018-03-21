@@ -108,46 +108,115 @@ public class DAOHotel {
 		}
 		
 		
-		public void deleteHotel(Hotel hotel) throws SQLException
+		/**
+		 * Metodo que obtiene la informacion de todos los hoteles en la Base de Datos <br/>
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+		 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
+		 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public ArrayList<Hotel> getHoteles() throws SQLException, Exception {
+			ArrayList<Hotel> hoteles = new ArrayList<Hotel>();
+
+			
+			String sql = String.format( "SELECT * FROM %1$s.HOTELERIA WHERE TIPOH = 'HOTEL'", USUARIO);
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			
+			System.out.println("depues sql");
+			
+					
+			while (rs.next()) {
+				System.out.println("entra al next");
+				
+				Hotel hotel = convertResultSetToHotel(rs);
+				
+				if(hotel!= null)
+				hoteles.add(hotel);
+			}
+			return hoteles;
+		}
+
+
+		/**
+		 * Metodo que obtiene la informacion del hotel en la Base de Datos que tiene el identificador dado por parametro<br/>
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+		 * @param id el identificador del hotel
+		 * @return la informacion del bebedor que cumple con los criterios de la sentecia SQL
+		 * 			Null si no existe el bebedor conlos criterios establecidos
+		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public Hotel findHotelById(int id) throws SQLException, Exception 
+		{
+			Hotel hotel = null;
+
+			String sql = String.format("SELECT * FROM %1$s.HOTELERIA WHERE ID = %2$d", USUARIO, id); 
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+
+			if(rs.next()) {
+				hotel = convertResultSetToHotel(rs);
+			}
+
+			return hotel;
+		}
+		
+		
+		/**
+		 * Metodo que obtiene la informacion de todos los hoteles en la Base de Datos <br/>
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+		 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
+		 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public ArrayList<Hostal> getHostales() throws SQLException, Exception {
+			ArrayList<Hostal> hostales = new ArrayList<>();
+
+			
+			String sql = String.format( "SELECT * FROM %1$s.HOTELERIA WHERE TIPOH = 'HOSTAL'", USUARIO);
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			
+			System.out.println("depues sql");
+			
+					
+			while (rs.next()) {
+				System.out.println("entra al next");
+				
+				Hostal hotel = (Hostal) convertResultSetToHotel(rs);
+				
+				if(hotel!= null)
+				hostales.add(hotel);
+			}
+			return hostales;
+		}
+		
+		
+		
+		
+		public void deleteHotel(int hoteleriaId) throws SQLException
 		{
 			
-			if(hotel instanceof Hostal)
-			{		
+		
 				
-				Hostal hostal = (Hostal)hotel; 
-				
-			String sql = String.format("DELETE FROM %1$s.HOSTAL WHERE HOSTALID = %2$s ", 
-						USUARIO, hostal.getId());
+			String sql = String.format("DELETE FROM %1$s.HOTELERIA WHERE HOSTALID = %2$s ", 
+						USUARIO, hoteleriaId);
 			
 			System.out.println(sql);
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
-			
-			sql = String.format("DELETE FROM %1$s.HOTEL WHERE HOTELID = %2$s ", 
-					USUARIO, hostal.getId());
-			
-			System.out.println(sql);
-			prepStmt = conn.prepareStatement(sql);
-			recursos.add(prepStmt);
-			prepStmt.executeQuery();
-			}else
-			{
-				
-				String sql = String.format("DELETE FROM %1$s.HOTEL WHERE HOTELID = %2$s ", 
-						USUARIO, hotel.getId());
-				
-				System.out.println(sql);
-				PreparedStatement prepStmt = conn.prepareStatement(sql);
-				recursos.add(prepStmt);
-				prepStmt.executeQuery();
-				
-				
-			}
-				
-			
 		}
 
+		
+		
 		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODOS AUXILIARES
@@ -189,26 +258,28 @@ public class DAOHotel {
 
 		
 			Hotel hotel = null;
+			Hostal hostal = null;
 			
-			String nombre=""; 
-			String rol = ""; 
-			int carnet = 0;
-			int id = 0;
+
+			String nombre = resultSet.getString("NOMBRE"); 
+			int capacidad = resultSet.getInt("CAPACIDAD"); 
+			int disponibilidad = resultSet.getInt("DISPONIBILIDAD"); 
+			String registroCamaraComercio = resultSet.getString("REGISTROCAMARACOMERCIO");
+			String registroSuperIntendencia = resultSet.getString("REGISTROSUPERINTENDENCIA"); 
+			String ubicacion = resultSet.getString("UBICACION"); 
+			int id = resultSet.getInt("HOTELERIAID");
 			
-			id = resultSet.getInt("COMUNIDADID");
-			nombre = resultSet.getString("NOMBRE");
-			rol = resultSet.getString("ROL"); 
-			carnet = resultSet.getInt("CARNET");
-			String tipo = resultSet.getString("TIPO");
 			
-			if(tipo.equals("CLIENTE"))
-			{
-			
-				//cliente = new Hotel(habitaciones, id, capacidad, disponibilidad, registroCamaraComercio, registroSuperIntendencia, ubicacion);
-					
-			
+			if(resultSet.getString("TIPOH").equals("HOSTAL")) {
+				
+				String horaApertura = resultSet.getString("HORAAPERTURA"); 
+				String horaCierre =  resultSet.getString("HORACIERRE"); 
+				
+				hostal = new Hostal(nombre, null, id, capacidad, disponibilidad, registroCamaraComercio, registroSuperIntendencia, ubicacion, horaApertura, horaCierre);
+				
 			}
 			
+			hotel = new Hotel(nombre, null, id, capacidad, disponibilidad, registroCamaraComercio, registroSuperIntendencia, ubicacion);
 			
 			return hotel;
 		}

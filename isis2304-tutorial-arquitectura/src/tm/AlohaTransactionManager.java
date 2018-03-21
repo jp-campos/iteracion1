@@ -582,6 +582,103 @@ public class AlohaTransactionManager {
 			}
 		}	
 	}
+	
+	
+	//-------------------------------------------------------------
+	//METODOS DELETE
+	//--------------------------------------------------------------
+	
+	
+	
+	
+
+	
+	/**
+	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
+	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
+	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
+	 * @param Hotel - hotel a eliminar. hotel != null
+	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
+	 */
+	public void deleteHotel(Hotel hotel) throws Exception 
+	{
+		DAOHotel daoHotel = new DAOHotel( );
+		try
+		{
+			this.conn = darConexion();
+			daoHotel.setConn( conn );
+			
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}	
+	}
+	
+	
+	
+	/**
+	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
+	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
+	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
+	 * @param Hotel - hotel a eliminar. hotel != null
+	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
+	 */
+	public void deleteHabitacion(Habitacion habitacion) throws Exception 
+	{
+		DAOHotel daoHotel = new DAOHotel( );
+		try
+		{
+			this.conn = darConexion();
+			daoHotel.setConn( conn );
+			
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}	
+	}
+	
+	
+	
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
 	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
@@ -589,16 +686,14 @@ public class AlohaTransactionManager {
 	 * @param Cliente - bebedor a eliminar. bebedor != null
 	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
 	 */
-	public void deleteBebedor(Cliente bebedor) throws Exception 
+	public void deleteCliente(Cliente bebedor) throws Exception 
 	{
 		DAOCliente daoBebedor = new DAOCliente( );
 		try
 		{
 			this.conn = darConexion();
 			daoBebedor.setConn( conn );
-			//TODO Requerimiento 6D: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
-			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
-			//						 De lo contrario, se elimina la informacion del bebedor de la Base de Datos
+			
 
 
 		}
