@@ -1,5 +1,7 @@
 package rest;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -11,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import tm.AlohaTransactionManager;
 import vos.Cliente;
+import vos.Habitacion;
 import vos.Hostal;
 import vos.Hotel;
 
@@ -68,6 +71,14 @@ public class AlojamientoService {
 				
 				tm.addHotel(hotel);
 				
+				List<Habitacion> habitaciones = hotel.getHabitaciones(); 
+				
+				for (Habitacion habitacion : habitaciones) {
+					
+					tm.addHabitacion(habitacion, hotel.getId());
+				}
+				
+				
 				return Response.status(200).entity(hotel).build();
 			} 
 			catch (Exception e) {
@@ -93,6 +104,9 @@ public class AlojamientoService {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
 		}
+		
+		
+		
 		
 		
 
