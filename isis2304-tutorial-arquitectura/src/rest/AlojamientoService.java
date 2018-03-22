@@ -21,6 +21,8 @@ import vos.Cliente;
 import vos.Habitacion;
 import vos.Hostal;
 import vos.Hotel;
+import vos.PersonaOperador;
+import vos.Vivienda;
 
 @Path("alojamientos")
 public class AlojamientoService {
@@ -79,6 +81,27 @@ public class AlojamientoService {
 				
 				
 				return Response.status(200).entity(hotel).build();
+			} 
+			catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+		}
+		
+		@POST
+		@Path("/vivienda")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response postVivienda(PersonaOperador operador,	Vivienda viv) {
+			
+			try {
+				System.out.println("entra al post crear ");
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				
+				
+				tm.addVivienda(viv,operador);
+				
+				
+				return Response.status(200).entity(viv).build();
 			} 
 			catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
@@ -152,6 +175,22 @@ public class AlojamientoService {
 				List<Hotel> hoteles = tm.getAllHoteles();
 				
 				return Response.status(200).entity(hoteles).build();
+			} 
+			catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+		}
+		
+		@GET
+		@Path("/vivienda")
+		@Consumes({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response getAllViviendas() {
+			try {
+				AlohaTransactionManager tm = new AlohaTransactionManager(getPath());
+				List<Vivienda> viviendas = tm.getAllViviendas();
+				
+				return Response.status(200).entity(viviendas).build();
 			} 
 			catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();

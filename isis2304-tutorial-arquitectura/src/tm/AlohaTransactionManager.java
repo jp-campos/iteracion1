@@ -28,6 +28,7 @@ import dao.DAOHabitacion;
 import dao.DAOHotel;
 import dao.DAOOperador;
 import dao.DAOReserva;
+import dao.DAOVivienda;
 import vos.Apartamento;
 import vos.Cliente;
 import vos.Comunidad;
@@ -35,6 +36,7 @@ import vos.Habitacion;
 import vos.Hotel;
 import vos.PersonaOperador;
 import vos.Reserva;
+import vos.Vivienda;
 
 /**
  * @author Juan Pablo Campos
@@ -352,6 +354,41 @@ public class AlohaTransactionManager {
 		}
 	}
 	
+	public void addVivienda(Vivienda vivienda, PersonaOperador operador) throws Exception 
+	{
+		
+		DAOVivienda daoVivienda = new DAOVivienda( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoVivienda.setConn(conn);
+			daoVivienda.addVivienda(operador, vivienda);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVivienda.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 	/**
 	 * Metodo que modela la transaccion que agrega una habitación de un respectivo operador a la base de datos. <br/>
 	 * <b> post: </b> se ha agregado el operador que entra como parametro <br/>
@@ -630,7 +667,42 @@ public class AlohaTransactionManager {
 		return hoteles;
 	}
 	
-	
+	public List<Vivienda> getAllViviendas() throws Exception {
+		DAOVivienda daoVivienda = new DAOVivienda();
+		List<Vivienda> vivienda;
+		try 
+		{
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			
+			
+			vivienda = daoVivienda.getViviendas();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVivienda.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vivienda;
+	}
 	
 	/**
 	 * Metodo que modela la transaccion que busca el bebedor en la base de datos que tiene el ID dado por parametro. <br/>
