@@ -60,7 +60,7 @@ public class DAOApartamento {
 		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 		 * @throws Exception Si se genera un error dentro del metodo.
 		 */
-		public void addApartamento(PersonaOperador operador, Apartamento apto) throws SQLException, Exception {
+		public void addApartamento(int idOperador, Apartamento apto) throws SQLException, Exception {
 
 			String sql = String.format("INSERT INTO %1$s.APARTAMENTO (AMOBLADO, OCUPADO, UBICACION, APARTAMENTOID, COMUNIDADID) VALUES (%2$s,%3$s,'%4$s',%5$s, %6$s )", 
 										USUARIO, 
@@ -68,23 +68,9 @@ public class DAOApartamento {
 										apto.isOcupado() ? 1:0, 
 										apto.getUbicacion(), 
 										apto.getId(), 
-										operador.getId());
+										idOperador);
 										
-			System.out.println(sql);
-			
-			PreparedStatement prepStmt = conn.prepareStatement(sql);
-			recursos.add(prepStmt);
-			prepStmt.executeQuery();
-			
-			sql = String.format("INSERT INTO %1$s.PERSONAOPERADOR (APARTAMENTOID) VALUES (%2$s) ", 
-								USUARIO, 
-								apto.getId());
-			
-			
-			System.out.println(sql);
-			prepStmt = conn.prepareStatement(sql);
-			recursos.add(prepStmt);
-			prepStmt.executeQuery();
+		
 			
 		}
 		

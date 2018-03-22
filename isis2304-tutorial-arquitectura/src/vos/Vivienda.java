@@ -2,6 +2,28 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+
+
+/**
+ * 
+ * El formato de este archivo es
+  
+ 
+  {
+  	"menaje": true, 
+  	"id": 1, 
+  	"operador": null, 
+  	"numeroHabitaciones": 4, 
+  	"ocupado": false, 
+  	"ubicacion": "kilometro 5 a chia"
+  
+  
+  }
+ 
+ 	@author K555L
+ *
+ */
+
 public class Vivienda {
 
 	
@@ -11,8 +33,8 @@ public class Vivienda {
 	@JsonProperty(value="id")
 	private int id;
 	
-	@JsonProperty(value="id")
-	private int idOperador;
+	@JsonProperty(value="operador")
+	private PersonaOperador operador;
 	
 	@JsonProperty(value="numeroHabitaciones")
 	private int numeroHabitaciones; 
@@ -23,10 +45,10 @@ public class Vivienda {
 	@JsonProperty(value="ubicacion")
 	private String ubicacion;
 
-	public Vivienda( @JsonProperty(value="menaje")boolean menaje,@JsonProperty(value="numeroHabitaciones") int numeroHabitaciones, @JsonProperty(value="ocupado")boolean ocupado, @JsonProperty(value="ubicacion")String ubicacion, @JsonProperty(value="id")int id,  @JsonProperty(value="id")int idOperador) {
+	public Vivienda( @JsonProperty(value="menaje")boolean menaje,@JsonProperty(value="numeroHabitaciones") int numeroHabitaciones, @JsonProperty(value="ocupado")boolean ocupado, @JsonProperty(value="ubicacion")String ubicacion, @JsonProperty(value="id")int id,  @JsonProperty(value="operador")PersonaOperador operador) {
 
 		this.id = id;
-		this.idOperador = idOperador;
+		this.operador = operador;
 		this.menaje = menaje;
 		this.numeroHabitaciones = numeroHabitaciones;
 		this.ocupado = ocupado;
@@ -49,8 +71,8 @@ public class Vivienda {
 		return id;
 	}
 
-	public int getOperadorId() {
-		return idOperador;
+	public PersonaOperador getOperadorId() {
+		return operador;
 	}
 	
 	public void setNumeroHabitaciones(int numeroHabitaciones) {
