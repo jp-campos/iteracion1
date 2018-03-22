@@ -70,7 +70,7 @@ public class DAOVivienda {
 										viv.isOcupado() ? 1:0, 
 										viv.getUbicacion(),
 										viv.getId(),
-										viv.getOperadorId());
+										operador.getId());
 										
 			System.out.println(sql);
 			
@@ -78,7 +78,7 @@ public class DAOVivienda {
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
 			
-			sql = String.format("INSERT INTO %1$s.PERSONAOPERADOR (VIVIENDAID) VALUES (%2$s) ", 
+			sql = String.format("INSERT INTO %1$s.COMUNIDAD (VIVIENDAID) VALUES (%2$s) ", 
 								USUARIO, 
 								viv.getId());
 			
