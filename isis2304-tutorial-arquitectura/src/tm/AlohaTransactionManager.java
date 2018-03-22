@@ -273,15 +273,27 @@ public class AlohaTransactionManager {
 	 * @param hotel - la reserva. reserva != null
 	 * @throws Exception - Cualquier error que se genere agregando el hotel
 	 */
-	public void addReserva(Reserva reserva) throws Exception 
+	public void addReserva(Reserva reserva, int idCliente, int idApartamento) throws Exception 
 	{
 		
 		DAOReserva daoReserva = new DAOReserva( );
 		try
 		{
 			this.conn = darConexion(); 
+			
+			Cliente cliente = getClienteById(idCliente); 
+			if(cliente == null)
+			{
+				throw new Exception("El cliente de la reserva no existe");
+			}
+			
+			
+			
 			daoReserva.setConn(conn);
 			daoReserva.addReserva(reserva);
+			
+			
+			
 
 		}
 		catch (SQLException sqlException) {
@@ -308,6 +320,8 @@ public class AlohaTransactionManager {
 			}
 		}
 	}
+	
+	
 	
 	
 	/**
@@ -495,6 +509,62 @@ public class AlohaTransactionManager {
 			}
 		}
 	}
+	
+	
+
+	/**
+	 * Metodo que modela la transaccion que agrega un apto de un respectivo operador a la base de datos. <br/>
+	 * <b> post: </b> se ha agregado el operador que entra como parametro <br/>
+	 * @param apto - el apto a agregar. apartamento != null
+	 * @param apto - el id del operador a agregar. apartamento != null
+	 * @throws Exception - Cualquier error que se genere agregando el apartemento
+	 */
+	public void addReserva(Apartamento apto, int idPersona) throws Exception 
+	{
+		
+		DAOApartamento daoApto = new DAOApartamento( );
+		try
+		{
+			this.conn = darConexion(); 
+			daoApto.setConn(conn);
+			
+			PersonaOperador operador = getOperadorById(idPersona);
+			
+			if( operador == null)
+			{
+				throw new Exception("El operador del alojamiento no está registrado");
+			}
+			
+			daoApto.addApartamento(operador, apto);
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoApto.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
 	
 	public void addServicios()
 	{
@@ -723,6 +793,50 @@ public class AlohaTransactionManager {
 		return operador;
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que busca el apartamento en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del operador a buscar. id != null
+	 * @return Bebedor - operador que se obtiene como resultado de la consulta.
+	 * @throws Exception -  apartamento error que se genere durante la transaccion
+	 */
+	public Apartamento getAptoByid(int id) throws Exception {
+		DAOApartamento daoApto = new DAOApartamento();
+		Apartamento apartamento = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoApto.setConn(conn);
+			apartamento = daoApto.findAptoByid(id);
+			if(apartamento == null)
+			{
+				throw new Exception("El operador con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoApto.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return apartamento;
+	}
 	
 	
 	//-------------------------------------------------------------
