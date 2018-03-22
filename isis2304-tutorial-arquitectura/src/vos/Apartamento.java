@@ -4,6 +4,12 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Clase que representa un apartamento
+ 
+  
+
+ 
+ 
+ 
  */
 public class Apartamento {
 

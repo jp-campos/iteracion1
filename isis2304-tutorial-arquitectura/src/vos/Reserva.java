@@ -11,8 +11,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 		"fechaInicial": "13-03-2018", 
 		"fechaFinal": "13-03-2018",
 		"precio": 150, 
-		"id": 1
-		"cliente" = 1
+		"id": 1,
+		"cliente" : null
 	}
 	
  * @author jp.campos

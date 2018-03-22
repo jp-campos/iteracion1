@@ -5,7 +5,21 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * Clase que representa un contrato de apartamento
  * @author jp.campos
- *
+ 
+ 	El formato Json para este archivo es 
+ 	
+ 	{
+		"fechaInicial": "13-03-2018", 
+		"fechaFinal": "13-03-2018",
+		"precio": 150, 
+		"id": 1,
+		"cliente" : null,
+		"incluyeServPublicos" : true, 
+		"precioServicio" : false, 
+		"apartamento" : null
+	}
+ 
+ 
  */
 public class ContratoApto extends Reserva{
 

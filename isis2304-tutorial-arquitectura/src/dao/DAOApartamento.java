@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.Apartamento;
+import vos.Cliente;
 import vos.Apartamento;
 import vos.PersonaOperador;
 
@@ -87,6 +88,25 @@ public class DAOApartamento {
 			
 		}
 		
+		public Apartamento findAptoByid(int idApto) throws SQLException
+		{
+			
+			Apartamento apto = null;
+
+			String sql = String.format("SELECT * FROM %1$s.APARTAMENTO WHERE APARTAMENTOID = %2$d", USUARIO, idApto); 
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+
+			if(rs.next()) {
+				apto = convertResultSetToApto(rs);
+			}
+
+			return apto;
+			
+			
+		}
 		
 		public void deleteApto(Apartamento apto) throws SQLException
 		{	
